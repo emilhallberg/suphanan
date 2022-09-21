@@ -1,0 +1,65 @@
+{
+  "dictionary": {
+    "read": "Read more"
+  },
+  "home": {
+    "header": {
+      "firstName": "Suphanan",
+      "lastName": "Chatphutsa"
+    },
+    "greeting": {
+      "button": "Contact me",
+      "sv": {
+        "title": "H e j",
+        "text": "Vad roligt att du har hittat hit! Vill du lära känna mig bättre eller ta del av min kreativitet? Då har du kommit helt rätt. Välkommen!"
+      },
+      "en": {
+        "title": "H e l l o",
+        "text": "I’m glad you found your way here! Would you like to know me better or take part in my work and creativity? Then you have come to the right place. Welcome!"
+      },
+      "th": {
+        "title": "สวัสดี",
+        "text": "ดีใจด้วยที่คุณพบเจอเว้บของเรา ถ้าคุณอยากจะรู้ว่าเราคือใคร คุณมาที่ทูกที่ ยินดีตอนรับค่ะ"
+      }
+    },
+    "about": {
+      "title": "Want to learn more about my projects?"
+    }
+  },
+  "projects": {
+    "header": {
+      "t1": "My",
+      "t2": "Projects"
+    },
+    "current": "Ongoing",
+    "magazines": {
+      "title": "Editor in chief",
+      "information": {
+        "title": "Ekbladet",
+        "subTitle": "Established 1983",
+        "text": "Student magazine belongs to the student association HHUS at Umeå University. Ekbladet has a circulation of 2,000 copies. As editor-in-chief in 2018, I was primarily responsible for the magazine's content, layout and communication both internally and externally. Feel free to see the newspapers online!"
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send",
+    "thanks": {
+      "title": "Thank you for your message!",
+      "text": "I'll get back to you as soon as possible.",
+      "again": "Send a new message"
+    }
+  },
+  "footer": {
+    "nav": "Navigate",
+    "language": "Language"
+  },
+  "empty": {
+    "title": "Whoops! Lost in space?",
+    "text": "I suggest you head back home."
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "dictionary": {
+    "read": "Läs mer"
+  },
+  "home": {
+    "header": {
+      "firstName": "Suphanan",
+      "lastName": "Chatphutsa"
+    },
+    "greeting": {
+      "button": "Kontakta mig",
+      "sv": {
+        "title": "Hej",
+        "text": "Vad roligt att du har hittat hit! Vill du lära känna mig bättre eller ta del av min kreativitet? Då har du kommit helt rätt. Välkommen!"
+      },
+      "en": {
+        "title": "Hello",
+        "text": "I’m glad you found your way here! Would you like to know me better or take part in my work and creativity? Then you have come to the right place. Welcome!"
+      },
+      "th": {
+        "title": "สวัสดี",
+        "text": "ดีใจด้วยที่คุณพบเจอเว้บของเรา ถ้าคุณอยากจะรู้ว่าเราคือใคร คุณมาที่ทูกที่ ยินดีตอนรับค่ะ"
+      }
+    },
+    "about": {
+      "title": "Vill du veta mer om mina projekt?"
+    }
+  },
+  "projects": {
+    "header": {
+      "t1": "Mina",
+      "t2": "Projekt"
+    },
+    "current": "Pågående",
+    "magazines": {
+      "title": "Chefsredaktör",
+      "information": {
+        "title": "Ekbladet",
+        "subTitle": "Grundades 1983",
+        "text": "Studenttidning tillhör studentföreningen HHUS på Umeå universitet. Ekbladet har en upplaga på 2 000 exemplar. Som chefredaktör år 2018 ansvarade jag främst för tidningens innehåll, layout och kommunikation både internt och externt. Se gärna tidningarna online!"
+      }
+    }
+  },
+  "contact": {
+    "title": "Kontakt",
+    "name": "Namn",
+    "email": "Email",
+    "subject": "Ämne",
+    "message": "Meddelande",
+    "send": "Skicka",
+    "thanks": {
+      "title": "Tack för ditt meddelande!",
+      "text": "Jag hör av mig så fort som möjligt.",
+      "again": "Skicka ett nytt meddelande"
+    }
+  },
+  "footer": {
+    "nav": "Meny",
+    "language": "Språk"
+  },
+  "empty": {
+    "title": "Hoppsan! Är du vilse?",
+    "text": "Jag föreslår att du beger dig hem."
+  }
+}
