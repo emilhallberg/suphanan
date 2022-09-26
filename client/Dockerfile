@@ -12,9 +12,7 @@ RUN yarn build
 FROM node:alpine3.11 as test-stage
 WORKDIR /app
 COPY --from=build-stage /app/ ./
-RUN ["yarn", "lint:check"]
-RUN ["yarn", "format:check"]
-RUN ["yarn", "test"]
+RUN ["yarn", "lint"]
 
 # Stage 2 - Production
 FROM nginx:1.18.0-alpine as prod-stage
