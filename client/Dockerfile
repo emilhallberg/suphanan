@@ -1,5 +1,5 @@
 # Stage 0 - Building
-FROM node:alpine3.11 as build-stage
+FROM node:21.4.0-alpine3.18 as build-stage
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn
@@ -9,14 +9,11 @@ COPY src ./src
 RUN yarn build
 
 # Stage 1 - Linting and formatting
-FROM node:alpine3.11 as test-stage
+FROM node:21.4.0-alpine3.18 as test-stage
 WORKDIR /app
 COPY --from=build-stage /app/ ./
 RUN ["yarn", "lint"]
 
 # Stage 2 - Production
-FROM nginx:1.18.0-alpine as prod-stage
-COPY --from=build-stage /app/build/ /var/www/html
-COPY nginx.conf /etc/nginx/temp/
-
-CMD ["/bin/sh", "-c", "PORT=${PORT:-80} envsubst '$PORT $API_SERVER' < /etc/nginx/temp/nginx.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"]
+FROM nginxinc/nginx-unprivileged:1.25-bookworm as prod-stage
+COPY --from=build-stage /app/build/ /usr/share/nginx/html
