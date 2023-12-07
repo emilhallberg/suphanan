@@ -8,6 +8,7 @@ const port = process.env.PORT || 4000;
 const {
   EMAIL_HOST,
   EMAIL_PORT,
+  EMAIL_TO,
   EMAIL_USERNAME,
   EMAIL_PASSWORD,
   NODE_ENV,
@@ -38,9 +39,9 @@ app.post('/email', async (req, res) => {
 
   await transport.sendMail(
     {
-      from: req.body.from,
-      to: EMAIL_USERNAME,
-      subject: `[hallbergemil.com] ${req.body.name}: ${req.body.subject}`,
+      from: EMAIL_USERNAME,
+      to: EMAIL_TO,
+      subject: `[suphanan.com] ${req.body.name} (${req.body.from}): ${req.body.subject}`,
       text: req.body.text,
     },
     (err) => {
