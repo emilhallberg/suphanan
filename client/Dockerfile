@@ -18,6 +18,6 @@ RUN ["yarn", "lint"]
 FROM nginxinc/nginx-unprivileged:1.25-bookworm as prod-stage
 
 # Use index.html as fallback
-RUN sed '/index  index.html index.htm;/a \\ttry_files $uri $uri/ /index.html =404;' /etc/nginx/conf.d/default.conf
+RUN sed -i '/index  index.html index.htm;/a \\ttry_files $uri $uri/ /index.html =404;' /etc/nginx/conf.d/default.conf
 
 COPY --from=build-stage /app/build/ /usr/share/nginx/html
