@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   server:
@@ -73,16 +74,30 @@ jobs:
   trigger-infra:
     runs-on: ubuntu-latest
     name: Trigger infra pipeline
+    if: github.ref == 'refs/heads/main'
     needs:
       - server
       - client
     steps:
+      - uses: actions/checkout@v2
+
       - name: Trigger pipeline
         run: |
+          version=$(git describe --abbrev=10 --always)
+          jsonBody='
+          {
+            "event_type": "Deploy suppis portfolio",
+            "client_payload": {
+              "suppis-client": "ghcr.io/emilhallberg/suphanan/client:'$version'",
+              "suppis-server": "ghcr.io/emilhallberg/suphanan/server:'$version'"
+            }
+          }
+          '
           curl \
             https://api.github.com/repos/emilhallberg/infrastructure/dispatches \
             -X POST \
             -H "Accept: application/vnd.github+json" \
-            -d '{"event_type":"trigger-k8s-update","client_payload":{"unit":false,"integration":true}}' \
+            -d "$jsonBody" \
             --header 'authorization: Bearer ${{ secrets.GH_ADMIN_ACCESS_TOKEN }}'
 
+          echo "$jsonBody"
