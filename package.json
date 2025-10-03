@@ -6,22 +6,29 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint --cache --max-warnings=0 --ext .js,.jsx,.ts,.tsx src next.config.ts tailwind.config.ts eslint.config.mjs",
+    "lint:fix": "NODE_OPTIONS=--max-old-space-size=4096 eslint --fix --cache --cache-location .eslintcache --max-warnings=0 --ext .js,.jsx,.ts,.tsx src next.config.ts tailwind.config.ts eslint.config.mjs",
+    "types": "tsc --noemit"
   },
   "dependencies": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "next": "15.5.4"
   },
   "devDependencies": {
     "typescript": "^5",
-    "@types/node": "^20",
+    "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@tailwindcss/postcss": "^4",
     "tailwindcss": "^4",
-    "eslint": "^9",
+    "eslint": "9.36.0",
     "eslint-config-next": "15.5.4",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-prettier": "5.5.4",
+    "eslint-plugin-simple-import-sort": "12.1.1",
+    "eslint-plugin-unused-imports": "4.2.0",
+    "prettier": "3.6.2",
     "@eslint/eslintrc": "^3"
   }
 }
