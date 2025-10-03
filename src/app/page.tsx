@@ -97,7 +97,7 @@ function AutoFitText({
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col justify-start items-center aspect-[3/2] min-w-[320px] max-w-[640px] mx-auto relative">
+    <div className="min-h-screen flex flex-col justify-start items-center aspect-[3/2] h-svh w-svw lg:w-[640px] mx-auto relative">
       <Image
         src="/foreground.png"
         alt="Foreground overlay"
@@ -122,7 +122,7 @@ export default function Home() {
       </div>
       <div
         id="countdown"
-        className="absolute bottom-10 w-full right-0 flex flex-col justify-center z-0 px-[5vw]"
+        className="absolute bottom-15 w-full right-0 flex flex-col justify-center z-0 px-[5vw]"
       >
         <Countdown className={`${anton.className} text-[#ff6ec7]`} />
       </div>
