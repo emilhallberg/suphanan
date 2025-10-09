@@ -1,12 +1,18 @@
 "use client";
 
 import { Anton } from "next/font/google";
+import { Caveat } from "next/font/google";
 import Image from "next/image";
 
 import AutoFitText from "@/ui/auto-fit-text";
 import Countdown from "@/ui/countdown";
 
 const anton = Anton({
+  weight: "400",
+  subsets: ["latin"],
+});
+
+const handwritten = Caveat({
   weight: "400",
   subsets: ["latin"],
 });
@@ -50,11 +56,18 @@ export default function Home() {
       >
         {/* Header */}
         <div className="w-full text-center mb-6 mt-6">
-          <span
-            className={`${anton.className} text-[#ff6ec7] text-3xl sm:text-4xl italic`}
+          <AutoFitText
+            className={`${anton.className} text-[#ff6ec7] uppercase mt-5`}
+            max={180}
           >
-            Birthday Week Calendar
-          </span>
+            Birthday
+          </AutoFitText>
+          <AutoFitText
+            className={`${anton.className} text-[#ff6ec7] uppercase mt-5`}
+            max={200}
+          >
+            Week
+          </AutoFitText>
         </div>
         <div className="w-full grid grid-cols-1 place-items-center pb-8">
           {(
@@ -63,11 +76,16 @@ export default function Home() {
               { day: 2, dow: "MONDAY" },
               { day: 3, dow: "TUESDAY" },
               { day: 4, dow: "WEDNESDAY" },
-              { day: 5, dow: "THURSDAY" },
+              { day: 5, dow: "THURSDAY", occupied: true },
               { day: 6, dow: "FRIDAY" },
               { day: 7, dow: "SATURDAY", circled: true },
-            ] as const
-          ).map(({ day, dow, circled, label }) => (
+            ] satisfies {
+              day: number;
+              dow: string;
+              circled?: boolean;
+              occupied?: boolean;
+            }[]
+          ).map(({ day, dow, circled, occupied }) => (
             <div
               key={day}
               className="w-50 flex flex-col items-stretch border-t last:border-b border-x"
@@ -137,9 +155,12 @@ export default function Home() {
                   {day}
                 </span>
 
-                {label ? (
-                  <span className="absolute bottom-2 left-2 rounded-full bg-neutral-900 text-neutral-50 text-xs px-2 py-1 tracking-wide">
-                    {label}
+                {occupied ? (
+                  <span
+                    className={`${handwritten.className} absolute uppercase font-bold right-2 bottom-4 origin-bottom-right -rotate-45 -translate-y-12 text-neutral-900 text-xl tracking-normal pointer-events-none`}
+                    style={{ color: "#ff6ec7" }}
+                  >
+                    Upptaget!
                   </span>
                 ) : null}
               </div>
