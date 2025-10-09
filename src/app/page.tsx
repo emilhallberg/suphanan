@@ -1,7 +1,7 @@
 "use client";
 
 import { Anton } from "next/font/google";
-import { Caveat } from "next/font/google";
+import { Homemade_Apple } from "next/font/google";
 import Image from "next/image";
 
 import AutoFitText from "@/ui/auto-fit-text";
@@ -12,7 +12,7 @@ const anton = Anton({
   subsets: ["latin"],
 });
 
-const handwritten = Caveat({
+const handwritten = Homemade_Apple({
   weight: "400",
   subsets: ["latin"],
 });
@@ -56,29 +56,23 @@ export default function Home() {
       >
         {/* Header */}
         <div className="w-full text-center mb-6 mt-6">
-          <AutoFitText
-            className={`${anton.className} text-[#ff6ec7] uppercase mt-5`}
-            max={180}
-          >
+          <AutoFitText className={`${handwritten.className} mt-5`} max={50}>
             Birthday
           </AutoFitText>
-          <AutoFitText
-            className={`${anton.className} text-[#ff6ec7] uppercase mt-5`}
-            max={200}
-          >
-            Week
+          <AutoFitText className={`${handwritten.className} mt-5`} max={50}>
+            week
           </AutoFitText>
         </div>
         <div className="w-full grid grid-cols-1 place-items-center pb-8">
           {(
             [
-              { day: 1, dow: "SUNDAY" },
-              { day: 2, dow: "MONDAY" },
-              { day: 3, dow: "TUESDAY" },
-              { day: 4, dow: "WEDNESDAY" },
-              { day: 5, dow: "THURSDAY", occupied: true },
-              { day: 6, dow: "FRIDAY" },
-              { day: 7, dow: "SATURDAY", circled: true },
+              { day: 1, dow: "MÅNDAG" },
+              { day: 2, dow: "TISDAG" },
+              { day: 3, dow: "ONSDAG" },
+              { day: 4, dow: "TORSDAG" },
+              { day: 5, dow: "FREDAG", occupied: true },
+              { day: 6, dow: "LÖRDAG" },
+              { day: 7, dow: "SÖNDAG", circled: true },
             ] satisfies {
               day: number;
               dow: string;
@@ -91,7 +85,7 @@ export default function Home() {
               className="w-50 flex flex-col items-stretch border-t last:border-b border-x"
             >
               {/* Day cell with internal header */}
-              <div className="relative flex items-center justify-center h-55 sm:h-60 lg:h-56 border-neutral-700 overflow-hidden bg-transparent">
+              <div className="relative flex items-center justify-center h-55 sm:h-60 lg:h-56 border-neutral-700 bg-transparent">
                 {/* Header inside box: day of week + month */}
                 <div className="absolute top-0 left-0 right-0 pt-2 text-center leading-3">
                   <div className="text-[12px] tracking-widest text-neutral-700">
@@ -102,51 +96,46 @@ export default function Home() {
                     DECEMBER
                   </div>
                 </div>
+                {day === 1 ? (
+                  <div className="absolute pt-3 -left-12">
+                    <Image
+                      src="/cake.png"
+                      alt="cake"
+                      height={100}
+                      width={100}
+                    />
+                  </div>
+                ) : null}
+                {day === 3 ? (
+                  <div className="absolute pt-3 -right-15 rotate-20">
+                    <Image
+                      src="/flower.png"
+                      alt="Flower"
+                      height={100}
+                      width={100}
+                    />
+                  </div>
+                ) : null}
+                {day === 4 ? (
+                  <div className="absolute pt-5 -left-13">
+                    <Image
+                      src="/redbow.png"
+                      alt="bow"
+                      height={100}
+                      width={100}
+                    />
+                  </div>
+                ) : null}
                 {/* Brush circle behind number */}
                 {circled ? (
-                  <svg
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 m-auto w-[98%] h-[85%] z-0"
-                    viewBox="0 0 100 70"
-                  >
-                    <g
-                      fill="none"
-                      stroke="#ff6ec7"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      {/* rounder base ellipse */}
-                      <path
-                        d="M8 35 C 20 10, 80 10, 92 35 C 80 60, 20 60, 8 35"
-                        strokeWidth="8"
-                        opacity="0.5"
-                      />
-                      {/* broken, varied strokes for brush texture */}
-                      <path
-                        d="M10 36 C 24 14, 76 14, 90 36"
-                        strokeWidth="6"
-                        opacity="0.9"
-                        strokeDasharray="26 10 12 14"
-                      />
-                      <path
-                        d="M12 33 C 28 16, 72 16, 88 33"
-                        strokeWidth="3.5"
-                        opacity="0.85"
-                        strokeDasharray="12 8 8 12 16 10"
-                      />
-                      {/* tapered accents */}
-                      <path
-                        d="M12 36 Q 10 34, 13 30"
-                        strokeWidth="6"
-                        opacity="0.8"
-                      />
-                      <path
-                        d="M88 34 Q 94 38, 90 46"
-                        strokeWidth="6"
-                        opacity="0.8"
-                      />
-                    </g>
-                  </svg>
+                  <div className="absolute pt-3">
+                    <Image
+                      src="/circle.png"
+                      alt="Circle"
+                      height={210}
+                      width={210}
+                    />
+                  </div>
                 ) : null}
 
                 <span
@@ -157,10 +146,10 @@ export default function Home() {
 
                 {occupied ? (
                   <span
-                    className={`${handwritten.className} absolute uppercase font-bold right-2 bottom-4 origin-bottom-right -rotate-45 -translate-y-12 text-neutral-900 text-xl tracking-normal pointer-events-none`}
+                    className={`${handwritten.className} absolute font-bold right-1 bottom-8 origin-bottom-right -rotate-45 -translate-y-12 text-neutral-900 text-xl tracking-normal pointer-events-none`}
                     style={{ color: "#ff6ec7" }}
                   >
-                    Upptaget!
+                    Upptaget
                   </span>
                 ) : null}
               </div>
