@@ -39,7 +39,7 @@ const eslintConfig = [
     },
     rules: {
       "prettier/prettier": "error",
-      "no-console": ["warn", { allow: ["error"] }],
+      "no-console": ["warn", { allow: ["error", "info"] }],
       "react/jsx-curly-brace-presence": [
         "error",
         { props: "never", children: "never", propElementValues: "always" },
