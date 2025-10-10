@@ -73,7 +73,7 @@ export default function ThankYouBurst({
           className={`${anton.className} text-[64px] text-[#ff6ec7] drop-shadow-[0_6px_0_#00000020] select-none`}
           style={{ animation: "pop 600ms ease-out 1" }}
         >
-          TACK DU ÄR BÄST!
+          TACK!
         </div>
 
         {sprites.map((s) => (

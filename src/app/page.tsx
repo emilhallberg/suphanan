@@ -30,7 +30,7 @@ export default function Home() {
           priority
           className="absolute right-[3vw] top-1/2 -translate-y-[10vh] lg:-translate-y-[5vh] max-h-[90%] max-w-[90%] w-auto z-10 pointer-events-none"
         />
-        <div className="absolute top-20 left-0 right-0 flex flex-col justify-center z-0 px-[5vw]">
+        <div className="absolute top-10 left-0 right-0 flex flex-col justify-center z-0 px-[5vw]">
           <AutoFitText
             className={`${anton.className} text-[#ff6ec7] uppercase`}
             max={220}
@@ -46,7 +46,7 @@ export default function Home() {
         </div>
         <div
           id="countdown"
-          className="absolute bottom-20 w-full right-0 flex flex-col justify-center z-0 px-[5vw]"
+          className="absolute bottom-25 w-full right-0 flex flex-col justify-center z-0 px-[5vw]"
         >
           <Countdown className={`${anton.className} text-[#ff6ec7]`} />
         </div>
