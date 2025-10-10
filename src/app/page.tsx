@@ -46,7 +46,7 @@ export default function Home() {
         </div>
         <div
           id="countdown"
-          className="absolute bottom-25 w-full right-0 flex flex-col justify-center z-0 px-[5vw]"
+          className="absolute bottom-22 w-full right-0 flex flex-col justify-center z-0 px-[5vw]"
         >
           <Countdown className={`${anton.className} text-[#ff6ec7]`} />
         </div>
