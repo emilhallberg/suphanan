@@ -56,95 +56,107 @@ export default function SignUp() {
         </button>
       )}
 
-      {open && (
-        <Form
-          action={action}
-          aria-busy={pending}
-          className="w-[min(92vw,520px)] border border-neutral-700 rounded-md bg-white/70 backdrop-blur-sm shadow-sm p-4"
-        >
-          <div className="flex items-start justify-between">
-            <div
-              className={`${handwritten.className} text-[28px] leading-none`}
-            >
-              Anmälan
-            </div>
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="text-neutral-700 hover:text-neutral-900"
-              aria-label="Stäng"
-            >
-              ✕
-            </button>
-          </div>
-
-          <div className="mt-4 grid gap-4">
-            <label className="block text-[12px] tracking-widest text-neutral-700">
-              Namn
-              <input
-                type="text"
-                name="name"
-                required
-                disabled={pending}
-                className="mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
-              />
-            </label>
-
-            <label className="block text-[12px] tracking-widest text-neutral-700">
-              Vilken dag önskar du?
-              <select
-                name="day"
-                defaultValue=""
-                disabled={pending}
-                className="mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
+      {/* Animated form container (always mounted for smooth open/close) */}
+      <div
+        aria-hidden={!open}
+        className={
+          `${
+            open
+              ? "grid-rows-[1fr] opacity-100 scale-100 mt-4"
+              : "grid-rows-[0fr] opacity-0 scale-[0.98] pointer-events-none"
+          } grid transition-all duration-300 ease-out w-[min(92vw,520px)]`
+        }
+      >
+        <div className="min-h-0 overflow-hidden">
+          <Form
+            action={action}
+            aria-busy={pending}
+            className="border border-neutral-700 rounded-md bg-white/70 backdrop-blur-sm shadow-sm p-4"
+          >
+            <div className="flex items-start justify-between">
+              <div
+                className={`${handwritten.className} text-[28px] leading-none`}
               >
-                <option value="" />
-                <option value="-1">Spelar ingen roll!</option>
-                {OPTIONS.map(({ day, occupied, circled }) => (
-                  <option key={day} value={day} disabled={occupied || circled}>
-                    {day}
-                  </option>
-                ))}
-              </select>
-            </label>
+                Anmälan
+              </div>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="text-neutral-700 hover:text-neutral-900"
+                aria-label="Stäng"
+              >
+                ✕
+              </button>
+            </div>
 
-            <label className="block text-[12px] tracking-widest text-neutral-700">
-              Önskemål eller andra frågor?
-              <textarea
-                name="other"
-                rows={4}
-                disabled={pending}
-                className="mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
-              />
-            </label>
-          </div>
-
-          <div className="mt-5 flex items-center justify-end gap-3">
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="px-4 py-2 text-neutral-700 hover:text-neutral-900"
-              disabled={pending}
-            >
-              Avbryt
-            </button>
-            <button
-              type="submit"
-              disabled={pending}
-              className={`${anton.className} uppercase tracking-wider px-5 py-2 border border-neutral-700 rounded-sm text-neutral-900 hover:bg-neutral-100 disabled:opacity-60 disabled:cursor-not-allowed relative flex items-center gap-2`}
-              style={{ color: "#ff6ec7" }}
-            >
-              {pending && (
-                <span
-                  className="inline-block h-4 w-4 rounded-full border-2 border-current border-t-transparent animate-spin"
-                  aria-hidden
+            <div className="mt-4 grid gap-4">
+              <label className="block text-[12px] tracking-widest text-neutral-700">
+                Namn
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  disabled={pending}
+                  className="mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
                 />
-              )}
-              {pending ? "Skickar…" : "Skicka in"}
-            </button>
-          </div>
-        </Form>
-      )}
+              </label>
+
+              <label className="block text-[12px] tracking-widest text-neutral-700">
+                Vilken dag önskar du?
+                <select
+                  name="day"
+                  defaultValue=""
+                  disabled={pending}
+                  className="mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
+                >
+                  <option value="" />
+                  <option value="-1">Spelar ingen roll!</option>
+                  {OPTIONS.map(({ day, occupied, circled }) => (
+                    <option key={day} value={day} disabled={occupied || circled}>
+                      {day}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="block text-[12px] tracking-widest text-neutral-700">
+                Önskemål eller andra frågor?
+                <textarea
+                  name="other"
+                  rows={4}
+                  disabled={pending}
+                  className="mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
+                />
+              </label>
+            </div>
+
+            <div className="mt-5 flex items-center justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="px-4 py-2 text-neutral-700 hover:text-neutral-900"
+                disabled={pending}
+              >
+                Avbryt
+              </button>
+              <button
+                type="submit"
+                disabled={pending}
+                className={`${anton.className} uppercase tracking-wider px-5 py-2 border border-neutral-700 rounded-sm text-neutral-900 hover:bg-neutral-100 disabled:opacity-60 disabled:cursor-not-allowed relative flex items-center gap-2`}
+                style={{ color: "#ff6ec7" }}
+              >
+                {pending && (
+                  <span
+                    className="inline-block h-4 w-4 rounded-full border-2 border-current border-t-transparent animate-spin"
+                    aria-hidden
+                  />
+                )}
+                {pending ? "Skickar…" : "Skicka in"}
+              </button>
+            </div>
+          </Form>
+        </div>
+      </div>
     </div>
   );
 }
