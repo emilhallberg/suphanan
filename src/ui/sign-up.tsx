@@ -105,7 +105,7 @@ export default function SignUp() {
                   name="name"
                   required
                   disabled={pending}
-                  className="mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
+                  className="text-lg mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
                 />
               </label>
 
@@ -116,7 +116,7 @@ export default function SignUp() {
                   name="email"
                   required
                   disabled={pending}
-                  className="mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
+                  className="text-lg mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
                 />
               </label>
 
@@ -126,7 +126,7 @@ export default function SignUp() {
                   name="day"
                   defaultValue=""
                   disabled={pending}
-                  className="mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
+                  className="text-lg mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
                 >
                   <option value="" />
                   <option value="-1">Spelar ingen roll!</option>
@@ -148,7 +148,7 @@ export default function SignUp() {
                   name="other"
                   rows={4}
                   disabled={pending}
-                  className="mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
+                  className="text-lg mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
                 />
               </label>
             </div>

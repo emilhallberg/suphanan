@@ -46,14 +46,14 @@ export default function Home() {
         </div>
         <div
           id="countdown"
-          className="absolute bottom-15 w-full right-0 flex flex-col justify-center z-0 px-[5vw]"
+          className="absolute bottom-20 w-full right-0 flex flex-col justify-center z-0 px-[5vw]"
         >
           <Countdown className={`${anton.className} text-[#ff6ec7]`} />
         </div>
       </div>
       <div
         id="calendar"
-        className="min-h-screen flex flex-col justify-start items-center aspect-[3/2] w-svw lg:w-[640px] mx-auto relative bg-transparent"
+        className="mt-16 min-h-screen flex flex-col justify-start items-center aspect-[3/2] w-svw lg:w-[640px] mx-auto relative bg-transparent"
       >
         {/* Header */}
         <div className="w-full text-center mb-6 mt-6">
