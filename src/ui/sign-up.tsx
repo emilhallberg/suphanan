@@ -6,6 +6,7 @@ import { Anton, Homemade_Apple } from "next/font/google";
 import Form from "next/form";
 
 import { signUp } from "@/ui/actions";
+import ThankYouBurst from "@/ui/thank-you-burst";
 
 const anton = Anton({ weight: "400", subsets: ["latin"] });
 const handwritten = Homemade_Apple({ weight: "400", subsets: ["latin"] });
@@ -27,6 +28,7 @@ export const OPTIONS = [
 
 export default function SignUp() {
   const [open, setOpen] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [, action, pending] = useActionState<{ error: boolean }, FormData>(
     async (state, payload) => {
       const res = await signUp(state, payload);
@@ -37,6 +39,7 @@ export default function SignUp() {
       }
 
       setOpen(false);
+      setSuccess(true);
       return state;
     },
     { error: false },
@@ -44,15 +47,16 @@ export default function SignUp() {
 
   return (
     <div className="pt-6 pb-12 grid place-items-center">
+      {/* Success overlay */}
+      <ThankYouBurst show={success} onClose={() => setSuccess(false)} />
       {/* Open form button */}
       {!open && (
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className={`${anton.className} uppercase tracking-wider text-[18px] px-6 py-3 border border-neutral-700 rounded-sm text-neutral-900 hover:bg-neutral-100 transition-colors`}
-          style={{ color: "#ff6ec7" }}
+          className={`${anton.className} hover:bg-[#F897D1FF] uppercase tracking-wider text-[18px] px-6 py-3 border border-neutral-700 rounded-full text-neutral-900 transition-colors`}
         >
-          Anmäl dig här!
+          Boka din dag här!
         </button>
       )}
 
@@ -72,10 +76,16 @@ export default function SignUp() {
             className="border border-neutral-700 rounded-md bg-white/70 backdrop-blur-sm shadow-sm p-4"
           >
             <div className="flex items-start justify-between">
-              <div
-                className={`${handwritten.className} text-[28px] leading-none`}
-              >
-                Anmälan
+              <div>
+                <div
+                  className={`${handwritten.className} text-[28px] leading-none`}
+                >
+                  Suppis 30 år, redo?
+                </div>
+                <p className="tracking-widest text-neutral-700 text-[12px]">
+                  Här kan du boka din dag under hennes Birthday Week eller
+                  ställa andra frågor! // Emil The Project Leader ;)
+                </p>
               </div>
               <button
                 type="button"
@@ -93,6 +103,17 @@ export default function SignUp() {
                 <input
                   type="text"
                   name="name"
+                  required
+                  disabled={pending}
+                  className="mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
+                />
+              </label>
+
+              <label className="block text-[12px] tracking-widest text-neutral-700">
+                E-post
+                <input
+                  type="email"
+                  name="email"
                   required
                   disabled={pending}
                   className="mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"

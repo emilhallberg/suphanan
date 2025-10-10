@@ -17,10 +17,11 @@ export async function signUp(_: { error: boolean }, formData: FormData) {
   console.info("Placing sign-up");
 
   const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
   const day = formData.get("day") as string;
   const other = formData.get("other") as string;
 
-  if (!name) {
+  if (!name || !email) {
     return { error: true };
   }
 
@@ -36,7 +37,7 @@ export async function signUp(_: { error: boolean }, formData: FormData) {
   `;
 
   const result = await transport.sendMail({
-    from: process.env.EMAIL_USERNAME,
+    from: email,
     to: process.env.EMAIL_USERNAME,
     subject,
     text,
