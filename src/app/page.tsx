@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import AutoFitText from "@/ui/auto-fit-text";
 import Countdown from "@/ui/countdown";
+import SignUp, { OPTIONS } from "@/ui/sign-up";
 
 const anton = Anton({
   weight: "400",
@@ -63,23 +64,9 @@ export default function Home() {
             week
           </AutoFitText>
         </div>
+        <SignUp />
         <div className="w-full grid grid-cols-1 place-items-center pb-8">
-          {(
-            [
-              { day: 1, dow: "MÅNDAG" },
-              { day: 2, dow: "TISDAG" },
-              { day: 3, dow: "ONSDAG" },
-              { day: 4, dow: "TORSDAG" },
-              { day: 5, dow: "FREDAG", occupied: true },
-              { day: 6, dow: "LÖRDAG" },
-              { day: 7, dow: "SÖNDAG", circled: true },
-            ] satisfies {
-              day: number;
-              dow: string;
-              circled?: boolean;
-              occupied?: boolean;
-            }[]
-          ).map(({ day, dow, circled, occupied }) => (
+          {OPTIONS.map(({ day, dow, circled, occupied }) => (
             <div
               key={day}
               className="w-50 flex flex-col items-stretch border-t last:border-b border-x"
