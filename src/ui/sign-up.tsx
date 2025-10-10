@@ -27,7 +27,7 @@ export const OPTIONS = [
 
 export default function SignUp() {
   const [open, setOpen] = useState(false);
-  const [state, action, pending] = useActionState<{ error: boolean }, FormData>(
+  const [, action, pending] = useActionState<{ error: boolean }, FormData>(
     async (state, payload) => {
       const res = await signUp(state, payload);
 
@@ -59,13 +59,11 @@ export default function SignUp() {
       {/* Animated form container (always mounted for smooth open/close) */}
       <div
         aria-hidden={!open}
-        className={
-          `${
-            open
-              ? "grid-rows-[1fr] opacity-100 scale-100 mt-4"
-              : "grid-rows-[0fr] opacity-0 scale-[0.98] pointer-events-none"
-          } grid transition-all duration-300 ease-out w-[min(92vw,520px)]`
-        }
+        className={`${
+          open
+            ? "grid-rows-[1fr] opacity-100 scale-100 mt-4"
+            : "grid-rows-[0fr] opacity-0 scale-[0.98] pointer-events-none"
+        } grid transition-all duration-300 ease-out w-[min(92vw,520px)]`}
       >
         <div className="min-h-0 overflow-hidden">
           <Form
@@ -112,7 +110,11 @@ export default function SignUp() {
                   <option value="" />
                   <option value="-1">Spelar ingen roll!</option>
                   {OPTIONS.map(({ day, occupied, circled }) => (
-                    <option key={day} value={day} disabled={occupied || circled}>
+                    <option
+                      key={day}
+                      value={day}
+                      disabled={occupied || circled}
+                    >
                       {day}
                     </option>
                   ))}
