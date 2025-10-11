@@ -145,7 +145,88 @@ export default function Home() {
           </div>
         </div>
       </main>
-      {/* Footer with Instagram link (sticky bottom) */}
+      <section className="w-full overflow-hidden py-10">
+        {/* Auto-scrolling image gallery */}
+        <div className="relative w-full">
+          <div className="gallery-marquee w-svw lg:w-[640px] mx-auto">
+            <div className="gallery-track">
+              {[
+                "/gallery/1.jpeg",
+                "/gallery/2.jpeg",
+                "/gallery/3.jpeg",
+                "/gallery/4.jpeg",
+                "/gallery/1.jpeg",
+                "/gallery/2.jpeg",
+                "/gallery/3.jpeg",
+                "/gallery/4.jpeg",
+                "/gallery/1.jpeg",
+                "/gallery/2.jpeg",
+                "/gallery/3.jpeg",
+                "/gallery/4.jpeg",
+              ].map((src, index) => {
+                return (
+                  <div key={`a-${src}-${index}`} className="polaroid">
+                    <span className="photoWrap">
+                      <Image
+                        src={src}
+                        alt="Polaroid photo"
+                        fill
+                        sizes="(max-width: 640px) 90vw, 640px"
+                        style={{ objectFit: "cover", objectPosition: "center" }}
+                      />
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        <style jsx>{`
+          .gallery-marquee {
+            overflow: hidden;
+            position: relative;
+          }
+
+          .gallery-track {
+            display: flex;
+            width: max-content;
+            height: 100%;
+            animation: gallery-scroll 60s linear infinite;
+            will-change: transform;
+          }
+
+          .polaroid {
+            height: 25vh;
+            aspect-ratio: 2 / 2; /* Portrait Polaroid card shape */
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow:
+              0 8px 24px rgba(0, 0, 0, 0.15),
+              0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 12px 6px 12px 6px; /* thicker bottom like Polaroid */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .photoWrap {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #f1f1f1;
+          }
+
+          @keyframes gallery-scroll {
+            from {
+              transform: translateX(0);
+            }
+            to {
+              transform: translateX(-50%);
+            }
+          }
+        `}</style>
+      </section>
       <footer className="w-full flex justify-center items-center py-8">
         <Link
           href="https://www.instagram.com/scuperwoman/"
