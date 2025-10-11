@@ -105,7 +105,7 @@ export default function SignUp() {
                   name="name"
                   required
                   disabled={pending}
-                  className="text-lg mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
+                  className="text-lg mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-accent"
                 />
               </label>
 
@@ -116,7 +116,7 @@ export default function SignUp() {
                   name="email"
                   required
                   disabled={pending}
-                  className="text-lg mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
+                  className="text-lg mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-accent"
                 />
               </label>
 
@@ -126,7 +126,7 @@ export default function SignUp() {
                   name="day"
                   defaultValue=""
                   disabled={pending}
-                  className="text-lg mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
+                  className="text-lg mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-accent"
                 >
                   <option value="" />
                   <option value="-1">Spelar ingen roll!</option>
@@ -148,7 +148,7 @@ export default function SignUp() {
                   name="other"
                   rows={4}
                   disabled={pending}
-                  className="text-lg mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7]"
+                  className="text-lg mt-1 w-full border border-neutral-700 rounded-sm bg-transparent px-3 py-2 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-accent"
                 />
               </label>
             </div>
@@ -165,8 +165,7 @@ export default function SignUp() {
               <button
                 type="submit"
                 disabled={pending}
-                className={`${anton.className} uppercase tracking-wider px-5 py-2 border border-neutral-700 rounded-sm text-neutral-900 hover:bg-neutral-100 disabled:opacity-60 disabled:cursor-not-allowed relative flex items-center gap-2`}
-                style={{ color: "#ff6ec7" }}
+                className={`${anton.className} uppercase tracking-wider px-5 py-2 border border-neutral-700 rounded-sm text-neutral-900 hover:bg-neutral-100 disabled:opacity-60 disabled:cursor-not-allowed relative flex items-center gap-2 text-accent`}
               >
                 {pending && (
                   <span

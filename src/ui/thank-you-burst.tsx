@@ -70,7 +70,7 @@ export default function ThankYouBurst({
     >
       <div className="relative grid place-items-center text-center min-w-[70vw] min-h-[60vh]">
         <div
-          className={`${anton.className} text-[64px] text-[#ff6ec7] drop-shadow-[0_6px_0_#00000020] select-none`}
+          className={`${anton.className} text-[64px] text-accent drop-shadow-[0_6px_0_#00000020] select-none`}
           style={{ animation: "pop 600ms ease-out 1" }}
         >
           TACK!
