@@ -19,3 +19,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Smooth wiggle animation for decorative elements */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+.wiggle {
+  animation: wiggle 2.2s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}

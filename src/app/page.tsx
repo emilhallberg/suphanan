@@ -33,8 +33,8 @@ export default function Home() {
               priority
               className="z-10 px-10"
             />
-            <div className="absolute -top-25 left-0 right-0 flex flex-col justify-center -z-1 px-[5vw] text-center">
-              <p className="uppercase text-black font-bold">
+            <div className="absolute -top-25 left-0 right-0 flex flex-col justify-center -z-1 px-[5vw] text-center gap-2">
+              <p className="uppercase text-black font-bold text-xs">
                 Let’s celebrate life and MY B-daY
               </p>
               <AutoFitText
@@ -114,6 +114,11 @@ export default function Home() {
                       />
                     </div>
                   ) : null}
+                  {day === 6 ? (
+                    <div className="absolute top-10 -right-10">
+                      <Image src="/mini.png" alt="bow" height={80} width={80} />
+                    </div>
+                  ) : null}
                   {/* Brush circle behind number */}
                   {circled ? (
                     <div className="absolute pt-3">
@@ -145,7 +150,7 @@ export default function Home() {
         </div>
       </main>
       <section className="grid justify-center relative h-[50svh] grid-cols-2 max-w-[640px] self-center py-10 lg:gap-10">
-        <div className="ml-5">
+        <div className="ml-5 wiggle">
           <Link href="/note">
             <Image
               src="/note.png"
