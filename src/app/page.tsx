@@ -150,7 +150,7 @@ export default function Home() {
         </div>
       </main>
       <section className="grid justify-center relative h-[50svh] grid-cols-2 max-w-[640px] self-center py-10 lg:gap-10">
-        <div className="ml-5 wiggle">
+        <div className="ml-5 lg:ml-10 wiggle">
           <Link href="/note">
             <Image
               src="/note.png"
@@ -173,7 +173,7 @@ export default function Home() {
       </section>
       {/* Footer with Instagram link (sticky bottom) */}
       <footer className="w-full flex justify-center items-center py-8 flex-col text-center">
-        <p className="text-black uppercase font-bold text-sm pb-3">
+        <p className="text-black uppercase font-bold text-xs py-3">
           FOLLOW MY B-DAY WEEK
         </p>
         <Link
