@@ -144,7 +144,7 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <section className="grid justify-center relative h-[50svh] grid-cols-2 max-w-[640px] self-center py-10 gap-10">
+      <section className="grid justify-center relative h-[50svh] grid-cols-2 max-w-[640px] self-center py-10 lg:gap-10">
         <div className="ml-5">
           <Link href="/note">
             <Image
