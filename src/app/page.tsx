@@ -23,28 +23,27 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 flex flex-col">
-        <div className="min-h-screen flex flex-col justify-start items-center aspect-[3/2] h-svh w-svw lg:w-[640px] mx-auto relative">
-          <Image
-            src="/foreground.png"
-            alt="Foreground overlay"
-            width={843}
-            height={780}
-            priority
-            className="absolute right-[3vw] top-1/2 -translate-y-[10vh] lg:-translate-y-[5vh] max-h-[90%] max-w-[90%] w-auto z-10 pointer-events-none"
-          />
-          <div className="absolute top-10 left-0 right-0 flex flex-col justify-center z-0 px-[5vw]">
-            <AutoFitText
-              className={`${anton.className} text-accent uppercase`}
-              max={220}
-            >
-              SUPPIS
-            </AutoFitText>
-            <AutoFitText
-              className={`${anton.className} text-accent uppercase mt-5`}
-              max={220}
-            >
-              30 ÅR
-            </AutoFitText>
+        <div className="min-h-screen flex flex-col justify-start items-center h-svh w-svw max-w-[640px] mx-auto relative">
+          <div className="absolute bottom-40 z-10">
+            <Image
+              src="/foreground.png"
+              alt="Foreground overlay"
+              width={774}
+              height={780}
+              priority
+              className="z-10 px-10"
+            />
+            <div className="absolute -top-25 left-0 right-0 flex flex-col justify-center -z-1 px-[5vw] text-center">
+              <p className="uppercase text-black font-bold">
+                Let’s celebrate life and MY B-daY
+              </p>
+              <AutoFitText
+                className={`${anton.className} text-accent uppercase`}
+                max={240}
+              >
+                SUPPIS 30
+              </AutoFitText>
+            </div>
           </div>
           <div
             id="countdown"
@@ -96,12 +95,12 @@ export default function Home() {
                     </div>
                   ) : null}
                   {day === 3 ? (
-                    <div className="absolute pt-3 -right-15 rotate-20">
+                    <div className="absolute pt-3 -right-12 rotate-20">
                       <Image
                         src="/flower.png"
                         alt="Flower"
                         height={100}
-                        width={100}
+                        width={80}
                       />
                     </div>
                   ) : null}
@@ -145,8 +144,33 @@ export default function Home() {
           </div>
         </div>
       </main>
+      <section className="grid justify-center relative h-[50svh] grid-cols-2 max-w-[640px] self-center py-10 gap-10">
+        <div className="hover:scale-105 transition-all">
+          <Link href="/note">
+            <Image
+              src="/note.png"
+              alt="note"
+              height={300}
+              width={300}
+              className="pointer-events-none"
+            />
+          </Link>
+        </div>
+        <div className="transition-all">
+          <Image
+            src="/stripe.png"
+            alt="stripe"
+            height={400}
+            width={250}
+            className="pointer-events-none"
+          />
+        </div>
+      </section>
       {/* Footer with Instagram link (sticky bottom) */}
-      <footer className="w-full flex justify-center items-center py-8">
+      <footer className="w-full flex justify-center items-center py-8 flex-col text-center">
+        <p className="text-black uppercase font-bold text-sm pb-3">
+          FOLLOW MY B-DAY WEEK
+        </p>
         <Link
           href="https://www.instagram.com/scuperwoman/"
           target="_blank"
@@ -157,8 +181,8 @@ export default function Home() {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
-            width="42"
-            height="42"
+            width="84"
+            height="84"
             aria-hidden="true"
             className="text-accent hover:opacity-80 transition-opacity"
           >

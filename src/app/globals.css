@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-accent: rgba(213, 9, 9, 0.88);
+  --color-accent: #ffaec8;
 }
 
 :root {
