@@ -145,14 +145,14 @@ export default function Home() {
         </div>
       </main>
       <section className="grid justify-center relative h-[50svh] grid-cols-2 max-w-[640px] self-center py-10 gap-10">
-        <div className="hover:scale-105 transition-all">
+        <div className="ml-5">
           <Link href="/note">
             <Image
               src="/note.png"
               alt="note"
               height={300}
               width={300}
-              className="pointer-events-none"
+              className="hover:scale-105 transition-all"
             />
           </Link>
         </div>
@@ -176,7 +176,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram"
-          className="inline-flex items-center"
+          className="inline-flex items-center hover:scale-105 transition-all"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
