@@ -66,6 +66,11 @@ export default function NotePage() {
     setOpen(false);
   };
 
+  const clampToSixRows = (v: string) => {
+    const lines = v.split(/\r?\n/);
+    return lines.slice(0, 6).join("\n");
+  };
+
   const subtleHint = useMemo(
     () => (
       <button
@@ -147,7 +152,12 @@ export default function NotePage() {
               style={{ background: n.color }}
             >
               <p
-                className={`h-full w-full whitespace-pre-wrap break-words text-black/80 text-2xl leading-tight ${handwritten.className} text-left overflow-auto`}
+                className={`h-full w-full whitespace-pre-wrap break-words text-black/80 text-2xl leading-tight ${handwritten.className} text-left overflow-hidden`}
+                style={{
+                  display: "-webkit-box",
+                  WebkitLineClamp: 6,
+                  WebkitBoxOrient: "vertical" as any,
+                }}
               >
                 {n.text}
               </p>
@@ -178,12 +188,24 @@ export default function NotePage() {
               >
                 <textarea
                   value={draft}
-                  onChange={(e) => setDraft(e.target.value)}
+                  rows={6}
+                  onChange={(e) => setDraft(clampToSixRows(e.target.value))}
                   placeholder="Write your wish..."
                   maxLength={150}
-                  className={`h-full w-full resize-none bg-transparent outline-none placeholder-black/40 text-black/80 text-2xl leading-tight ${handwritten.className} text-left`}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      const lines = (e.currentTarget.value || "").split(
+                        /\r?\n/,
+                      );
+                      if (lines.length >= 6) e.preventDefault();
+                    }
+                  }}
+                  className={`h-full w-full resize-none bg-transparent outline-none placeholder-black/40 text-black/80 text-2xl leading-tight ${handwritten.className} text-left overflow-hidden`}
                 />
               </div>
+              <span className="absolute bottom-1 right-2 text-xs text-black/50 select-none">
+                {draft.length}/150
+              </span>
             </div>
 
             {/* Controls */}
