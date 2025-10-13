@@ -52,18 +52,31 @@ export default function NotePage() {
     setOpen(false);
   };
 
-  const subtleHint = useMemo(
-    () => (
+  const subtleHint = useMemo(() => {
+    const words = ["click here", "to", "write a", "message", "❤"];
+    const styles = words.map(() => ({
+      animationDuration: `${0.2 + Math.random() * 0.3}s`,
+      animationDelay: `${Math.random() * 0.8}s`,
+    }));
+
+    return (
       <button
         aria-label="Leave a message"
-        className="mx-auto mt-12 text-sm text-black/40 hover:text-black/60 transition-colors"
+        className="mx-auto mt-12 text-black/40 hover:text-black/60 transition-colors flex gap-2 cursor-pointer"
         onClick={() => setOpen(true)}
       >
-        click to leave a message
+        {words.map((w, i) => (
+          <mark
+            key={w + i}
+            className="bg-black hover:bg-black/80 text-white px-3 py-0.5 wiggle inline-block"
+            style={styles[i] as React.CSSProperties}
+          >
+            {w}
+          </mark>
+        ))}
       </button>
-    ),
-    [],
-  );
+    );
+  }, []);
 
   return (
     <div className="mx-auto max-w-4xl px-4 pb-24">
