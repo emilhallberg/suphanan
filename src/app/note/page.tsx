@@ -75,13 +75,13 @@ export default function NotePage() {
     () => (
       <button
         aria-label="Leave a message"
-        className="mx-auto mt-12 text-black/40 hover:text-black/60 transition-colors flex gap-2 cursor-pointer"
+        className="mx-auto mt-12 text-black/40 hover:text-black/60 transition-colors flex gap-1 sm:gap-2 cursor-pointer whitespace-nowrap"
         onClick={() => setOpen(true)}
       >
         {HINT_WORDS.map((w, i) => (
           <mark
             key={w + i}
-            className="bg-black hover:bg-black/80 text-white px-3 py-0.5 wiggle inline-block"
+            className="bg-black hover:bg-black/80 text-white px-2 sm:px-3 py-0.5 text-xs sm:text-sm wiggle inline-block"
             style={hintStyles[i] as React.CSSProperties}
           >
             {w}
@@ -96,11 +96,11 @@ export default function NotePage() {
     <div className="mx-auto max-w-4xl px-4 pb-24">
       {/* Header */}
       <div
-        className="grid items-center justify-center gap-4 pt-10"
+        className="grid items-center justify-center gap-2 sm:gap-4 pt-10"
         style={{ gridTemplateColumns: "1fr max-content 1fr" }}
       >
         <h1
-          className="text-right text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-wider"
+          className="text-right text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-wider whitespace-nowrap leading-none"
           style={{ color: "var(--accent)" }}
         >
           B-DAY
@@ -121,7 +121,7 @@ export default function NotePage() {
         </div>
 
         <h1
-          className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-wider"
+          className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-wider whitespace-nowrap leading-none"
           style={{ color: "var(--accent)" }}
         >
           WISHES
@@ -190,7 +190,7 @@ export default function NotePage() {
                   value={draft}
                   rows={6}
                   onChange={(e) => setDraft(clampToSixRows(e.target.value))}
-                  placeholder="Write your wish..."
+                  placeholder="Skriv något..."
                   maxLength={150}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -232,14 +232,14 @@ export default function NotePage() {
                   className="rounded-md bg-white/70 px-3 py-1 text-sm shadow hover:bg-white"
                   onClick={() => setOpen(false)}
                 >
-                  Cancel
+                  Avbryt
                 </button>
                 <button
                   className="rounded-md bg-black text-white px-3 py-1 text-sm shadow disabled:opacity-40"
                   onClick={addNote}
                   disabled={!draft.trim()}
                 >
-                  Save
+                  Skicka
                 </button>
               </div>
             </div>
