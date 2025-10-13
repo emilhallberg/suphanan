@@ -190,7 +190,7 @@ export default function NotePage() {
                   value={draft}
                   rows={6}
                   onChange={(e) => setDraft(clampToSixRows(e.target.value))}
-                  placeholder="Skriv något..."
+                  placeholder="Write something..."
                   maxLength={150}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -232,14 +232,14 @@ export default function NotePage() {
                   className="rounded-md bg-white/70 px-3 py-1 text-sm shadow hover:bg-white"
                   onClick={() => setOpen(false)}
                 >
-                  Avbryt
+                  Cancel
                 </button>
                 <button
                   className="rounded-md bg-black text-white px-3 py-1 text-sm shadow disabled:opacity-40"
                   onClick={addNote}
                   disabled={!draft.trim()}
                 >
-                  Skicka
+                  Send
                 </button>
               </div>
             </div>
