@@ -22,6 +22,7 @@ const NOTE_COLORS = ["#f8c9d1", "#ffeb99", "#c7f9cc", "#bde0fe", "#f1c0e8"];
 const NOTE_ROTATIONS = [-4, 4, -2.5, 5, -1.5, 3.5, -3];
 const NOTE_W = 224; // 56 * 4
 const NOTE_H = 224;
+const HINT_WORDS = ["click here", "to", "write a", "message", "❤"];
 
 const handwritten = Square_Peg({ weight: "400", subsets: ["latin"] });
 
@@ -31,12 +32,25 @@ export default function NotePage() {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [draftColor, setDraftColor] = useState(NOTE_COLORS[0]);
+  const [hintStyles, setHintStyles] = useState<
+    { animationDuration: string; animationDelay: string }[]
+  >(HINT_WORDS.map(() => ({ animationDuration: "2s", animationDelay: "0s" })));
 
   useEffect(() => {
     const id = setInterval(() => {
       setSlide((s) => (s + 1) % SLIDES.length);
     }, 300);
     return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    // Randomize after mount to avoid SSR hydration mismatches
+    setHintStyles(
+      HINT_WORDS.map(() => ({
+        animationDuration: `${0.3 + Math.random() * 0.3}s`,
+        animationDelay: `${Math.random() * 0.8}s`,
+      })),
+    );
   }, []);
 
   const addNote = () => {
@@ -52,31 +66,26 @@ export default function NotePage() {
     setOpen(false);
   };
 
-  const subtleHint = useMemo(() => {
-    const words = ["click here", "to", "write a", "message", "❤"];
-    const styles = words.map(() => ({
-      animationDuration: `${0.2 + Math.random() * 0.3}s`,
-      animationDelay: `${Math.random() * 0.8}s`,
-    }));
-
-    return (
+  const subtleHint = useMemo(
+    () => (
       <button
         aria-label="Leave a message"
         className="mx-auto mt-12 text-black/40 hover:text-black/60 transition-colors flex gap-2 cursor-pointer"
         onClick={() => setOpen(true)}
       >
-        {words.map((w, i) => (
+        {HINT_WORDS.map((w, i) => (
           <mark
             key={w + i}
             className="bg-black hover:bg-black/80 text-white px-3 py-0.5 wiggle inline-block"
-            style={styles[i] as React.CSSProperties}
+            style={hintStyles[i] as React.CSSProperties}
           >
             {w}
           </mark>
         ))}
       </button>
-    );
-  }, []);
+    ),
+    [hintStyles],
+  );
 
   return (
     <div className="mx-auto max-w-4xl px-4 pb-24">
