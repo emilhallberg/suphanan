@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { Square_Peg } from "next/font/google";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 type Note = {
   id: string;
@@ -27,6 +28,7 @@ const HINT_WORDS = ["click here", "to", "write a", "message", "❤"];
 const handwritten = Square_Peg({ weight: "400", subsets: ["latin"] });
 
 export default function NotePage() {
+  const router = useRouter();
   const [slide, setSlide] = useState(0);
   const [notes, setNotes] = useState<Note[]>([]);
   const [open, setOpen] = useState(false);
@@ -94,6 +96,29 @@ export default function NotePage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 pb-24">
+      {/* Back button */}
+      <button
+        aria-label="Go back"
+        onClick={() => router.back()}
+        className="fixed left-3 top-3 z-50 flex h-10 w-10 items-center justify-center"
+        style={{ color: "var(--accent)" }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="28"
+          height="28"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden
+        >
+          <path d="M22 12H4" />
+          <path d="M12 19l-8-7 8-7" />
+        </svg>
+      </button>
       {/* Header */}
       <div
         className="grid items-center justify-center gap-2 sm:gap-4 pt-10"
