@@ -31,9 +31,11 @@ export default function NotePage() {
   const router = useRouter();
   const [slide, setSlide] = useState(0);
   const [notes, setNotes] = useState<Note[]>([]);
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [draftColor, setDraftColor] = useState(NOTE_COLORS[0]);
+
   const [hintStyles, setHintStyles] = useState<
     { animationDuration: string; animationDelay: string }[]
   >(HINT_WORDS.map(() => ({ animationDuration: "2s", animationDelay: "0s" })));
@@ -55,7 +57,24 @@ export default function NotePage() {
     );
   }, []);
 
-  const addNote = () => {
+  // Restore state via API (server lists blobs)
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const res = await fetch("/api/notes", { cache: "no-store" });
+        if (!res.ok) throw new Error(await res.text());
+        const payload = (await res.json()) as Note[];
+        setNotes(payload);
+      } catch (e) {
+        console.error("Failed to load notes", e);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  const addNote = async () => {
     if (!draft.trim()) return setOpen(false);
     const n: Note = {
       id: Math.random().toString(36).slice(2),
@@ -63,6 +82,16 @@ export default function NotePage() {
       color: draftColor,
     };
     setNotes((prev) => [n, ...prev]);
+    try {
+      const res = await fetch("/api/notes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: n.id, text: n.text, color: n.color }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+    } catch (e) {
+      console.error("Failed to save note", e);
+    }
     setDraft("");
     setDraftColor(NOTE_COLORS[0]);
     setOpen(false);
@@ -100,7 +129,7 @@ export default function NotePage() {
       <button
         aria-label="Go back"
         onClick={() => router.back()}
-        className="fixed left-3 top-3 z-50 flex h-10 w-10 items-center justify-center"
+        className="fixed left-3 top-3 z-50 flex h-10 w-10 items-center justify-center cursor-pointer"
         style={{ color: "var(--accent)" }}
       >
         <svg
@@ -139,6 +168,7 @@ export default function NotePage() {
             key={SLIDES[slide].src}
             src={SLIDES[slide].src}
             alt={SLIDES[slide].alt}
+            sizes="(max-width: 640px) 100vw, 240px"
             fill
             className="object-cover grayscale"
             priority
@@ -158,37 +188,43 @@ export default function NotePage() {
 
       {/* Notes wall */}
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 place-items-center">
-        {notes.map((n, idx) => (
-          <div
-            key={n.id}
-            className="relative"
-            style={{
-              width: NOTE_W,
-              height: NOTE_H,
-              transform: `rotate(${NOTE_ROTATIONS[idx % NOTE_ROTATIONS.length]}deg)`,
-            }}
-          >
-            {/* tape */}
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 h-6 w-24 bg-[#FFAEC8] rotate-[-7deg] shadow-sm z-10" />
-
-            {/* note */}
+        {loading && (
+          <p className="col-span-full text-center text-black/50">
+            Loading notes…
+          </p>
+        )}
+        {!loading &&
+          notes.map((n, idx) => (
             <div
-              className="absolute inset-0 rounded-md shadow-lg p-4 z-0"
-              style={{ background: n.color }}
+              key={n.id}
+              className="relative"
+              style={{
+                width: NOTE_W,
+                height: NOTE_H,
+                transform: `rotate(${NOTE_ROTATIONS[idx % NOTE_ROTATIONS.length]}deg)`,
+              }}
             >
-              <p
-                className={`h-full w-full whitespace-pre-wrap break-words text-black/80 text-2xl leading-tight ${handwritten.className} text-left overflow-hidden`}
-                style={{
-                  display: "-webkit-box",
-                  WebkitLineClamp: 6,
-                  WebkitBoxOrient: "vertical" as any,
-                }}
+              {/* tape */}
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 h-6 w-24 bg-[#FFAEC8] rotate-[-7deg] shadow-sm z-10" />
+
+              {/* note */}
+              <div
+                className="absolute inset-0 rounded-md shadow-lg p-4 z-0"
+                style={{ background: n.color }}
               >
-                {n.text}
-              </p>
+                <p
+                  className={`h-full w-full whitespace-pre-wrap break-words text-black/80 text-2xl leading-tight ${handwritten.className} text-left overflow-hidden`}
+                  style={{
+                    display: "-webkit-box",
+                    WebkitLineClamp: 6,
+                    WebkitBoxOrient: "vertical" as any,
+                  }}
+                >
+                  {n.text}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
 
       {/* Modal */}

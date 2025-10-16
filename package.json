@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@types/nodemailer": "^7.0.2",
+    "@vercel/blob": "^2.0.0",
     "next": "15.5.4",
     "nodemailer": "^7.0.9",
     "react": "19.2.0",
