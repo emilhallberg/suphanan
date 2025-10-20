@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { Square_Peg } from "next/font/google";
+import { Kranky } from "next/font/google";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -19,13 +19,24 @@ const SLIDES = [
   { src: "/slideshow/4.jpg", alt: "4" },
 ];
 
-const NOTE_COLORS = ["#f8c9d1", "#ffeb99", "#c7f9cc", "#bde0fe", "#f1c0e8"];
+// Soft beige → gray → pink scale inspired by provided image
+const NOTE_COLORS = [
+  // beige / cream
+  "#F2E3D9",
+  "#E7D2C9",
+  // grays
+  "#BFC6C3",
+  "#D9DFDC",
+  // pinks
+  "#F1D6DC",
+  "#F3C0CD",
+];
 const NOTE_ROTATIONS = [-4, 4, -2.5, 5, -1.5, 3.5, -3];
 const NOTE_W = 224; // 56 * 4
 const NOTE_H = 224;
-const HINT_WORDS = ["click here", "to", "write a", "message", "❤"];
+const HINT_WORDS = ["click here", "to", "write a", "message"];
 
-const handwritten = Square_Peg({ weight: "400", subsets: ["latin"] });
+const handwritten = Kranky({ weight: "400", subsets: ["latin"] });
 
 export default function NotePage() {
   const router = useRouter();
@@ -153,10 +164,7 @@ export default function NotePage() {
         className="grid items-center justify-center gap-2 sm:gap-4 pt-10"
         style={{ gridTemplateColumns: "1fr max-content 1fr" }}
       >
-        <h1
-          className="text-right text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-wider whitespace-nowrap leading-none"
-          style={{ color: "var(--accent)" }}
-        >
+        <h1 className="text-right text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-wider whitespace-nowrap leading-none">
           B-DAY
         </h1>
 
@@ -175,10 +183,7 @@ export default function NotePage() {
           />
         </div>
 
-        <h1
-          className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-wider whitespace-nowrap leading-none"
-          style={{ color: "var(--accent)" }}
-        >
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-wider whitespace-nowrap leading-none">
           WISHES
         </h1>
       </div>
@@ -205,18 +210,18 @@ export default function NotePage() {
               }}
             >
               {/* tape */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 h-6 w-24 bg-[#FFAEC8] rotate-[-7deg] shadow-sm z-10" />
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 h-6 w-24 bg-white/80 rotate-[-7deg] shadow-sm z-10" />
 
               {/* note */}
               <div
-                className="absolute inset-0 rounded-md shadow-lg p-4 z-0"
+                className="absolute inset-0 shadow-lg p-4 z-0"
                 style={{ background: n.color }}
               >
                 <p
-                  className={`h-full w-full whitespace-pre-wrap break-words text-black/80 text-2xl leading-tight ${handwritten.className} text-left overflow-hidden`}
+                  className={`h-full w-full whitespace-pre-wrap break-words text-black/80 text-lg leading-tight ${handwritten.className} text-left overflow-hidden`}
                   style={{
                     display: "-webkit-box",
-                    WebkitLineClamp: 6,
+                    WebkitLineClamp: 8,
                     WebkitBoxOrient: "vertical" as any,
                   }}
                 >
@@ -242,30 +247,30 @@ export default function NotePage() {
               className="relative mx-auto"
               style={{ width: NOTE_W, height: NOTE_H }}
             >
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 h-6 w-24 bg-[#FFAEC8] rotate-[-6deg] shadow-sm z-10" />
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 h-6 w-24 bg-white/80 rotate-[-6deg] shadow-sm z-10" />
               <div
-                className="absolute inset-0 rounded-md shadow-xl p-4"
+                className="absolute inset-0 shadow-xl p-4"
                 style={{ background: draftColor }}
               >
                 <textarea
                   value={draft}
-                  rows={6}
+                  rows={8}
                   onChange={(e) => setDraft(clampToSixRows(e.target.value))}
                   placeholder="Write something..."
-                  maxLength={150}
+                  maxLength={180}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       const lines = (e.currentTarget.value || "").split(
                         /\r?\n/,
                       );
-                      if (lines.length >= 6) e.preventDefault();
+                      if (lines.length >= 8) e.preventDefault();
                     }
                   }}
-                  className={`h-full w-full resize-none bg-transparent outline-none placeholder-black/40 text-black/80 text-2xl leading-tight ${handwritten.className} text-left overflow-hidden`}
+                  className={`h-full w-full resize-none bg-transparent outline-none placeholder-black/40 text-black/80 text-lg leading-tight ${handwritten.className} text-left overflow-hidden`}
                 />
               </div>
               <span className="absolute bottom-1 right-2 text-xs text-black/50 select-none">
-                {draft.length}/150
+                {draft.length}/180
               </span>
             </div>
 
