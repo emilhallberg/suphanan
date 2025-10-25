@@ -1,6 +1,6 @@
 "use client";
 
-import { type CSSProperties, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { Anton } from "next/font/google";
 import { Homemade_Apple } from "next/font/google";
@@ -23,30 +23,48 @@ const handwritten = Homemade_Apple({
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement | null>(null);
+  const fixedTextRef = useRef<HTMLDivElement | null>(null);
+  const balloonRef = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<HTMLDivElement | null>(null);
-  const [textOffset, setTextOffset] = useState(0);
-  const [balloonOffset, setBalloonOffset] = useState(0);
-  const [cardsStyle, setCardsStyle] = useState<CSSProperties>({});
+  const tickingRef = useRef(false);
 
   useEffect(() => {
     const el = heroRef.current;
-    const cardsEl = cardsRef.current;
     if (!el) return;
-    const onScroll = () => {
-      const rect = el.getBoundingClientRect();
-      const h = Math.max(rect.height, 1);
-      const sc = Math.min(Math.max(-rect.top, 0), h);
-      setTextOffset(-sc * 0.25);
-      setBalloonOffset(-sc * 0.35);
-      if (cardsEl) {
-        const r = cardsEl.getBoundingClientRect();
+
+    const update = () => {
+      tickingRef.current = false;
+      const heroRect = el.getBoundingClientRect();
+      const heroH = Math.max(heroRect.height, 1);
+      const heroScroll = Math.min(Math.max(-heroRect.top, 0), heroH);
+
+      // Fixed text parallax
+      const textDy = -heroScroll * 0.25;
+      const textEl = fixedTextRef.current;
+      if (textEl) {
+        textEl.style.willChange = "transform";
+        textEl.style.transform = `translate(-50%, calc(-50% + ${textDy}px))`;
+      }
+
+      // Balloon parallax
+      const bEl = balloonRef.current;
+      const balloonDy = -heroScroll * 0.35;
+      if (bEl) {
+        bEl.style.willChange = "transform";
+        bEl.style.transform = `translate3d(0, ${balloonDy}px, 0)`;
+      }
+
+      // Cards bounce -> fly-out
+      const cEl = cardsRef.current;
+      if (cEl) {
+        const r = cEl.getBoundingClientRect();
         const vh = window.innerHeight || document.documentElement.clientHeight;
         const start = vh * 0.9;
         const denom = vh + r.height;
         let p = (start - r.top) / Math.max(denom, 1);
         p = Math.max(0, Math.min(1, p));
 
-        const baseY = -80; // roughly -translate-y-20
+        const baseY = -80; // px
         let tx = 0;
         let ty = baseY;
         let rot = 0;
@@ -69,13 +87,20 @@ export default function Home() {
           rot = 18 * ease;
           opacity = 1 - 0.9 * ease;
         }
-        setCardsStyle({
-          transform: `translate(${tx}px, ${ty}px) rotate(${rot}deg)`,
-          opacity,
-          willChange: "transform, opacity",
-        });
+        cEl.style.willChange = "transform, opacity";
+        cEl.style.transform = `translate3d(${tx}px, ${ty}px, 0) rotate(${rot}deg)`;
+        cEl.style.opacity = `${opacity}`;
       }
     };
+
+    const onScroll = () => {
+      if (!tickingRef.current) {
+        tickingRef.current = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    // Initial update
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true } as any);
     window.addEventListener("resize", onScroll);
@@ -95,22 +120,21 @@ export default function Home() {
           }}
           ref={heroRef}
         >
-          <div className="w-full sticky top-[15vh] z-0">
+          <div className="w-full z-0">
             <div className="relative w-full">
-              <AutoFitText
-                className={`${anton.className} text-accent uppercase max-w-full`}
-                max={200}
-              >
-                SUPPIS 30
-              </AutoFitText>
+              <div className="min-h-[clamp(72px,20vw,140px)]">
+                <AutoFitText
+                  className={`${anton.className} text-accent uppercase max-w-full`}
+                  max={200}
+                >
+                  SUPPIS 30
+                </AutoFitText>
+              </div>
               <div
                 id="fixed-text"
+                ref={fixedTextRef}
                 className="pointer-events-none absolute left-1/2 top-1/2 w-[82%] sm:w-[72%] z-[110]"
-                style={
-                  {
-                    transform: `translate(-50%, calc(-50% + ${textOffset}px))`,
-                  } as CSSProperties
-                }
+                style={{ transform: "translate(-50%, -50%)" }}
               >
                 <AutoFitText
                   className={`${handwritten.className} text-black font-bold text-center`}
@@ -131,12 +155,9 @@ export default function Home() {
                 className="w-full h-auto"
               />
               <div
+                ref={balloonRef}
                 className="absolute right-[15%] bottom-[5%] w-[22%] sm:w-[16%] md:w-[14%]"
-                style={
-                  {
-                    transform: `translateY(${balloonOffset}px)`,
-                  } as CSSProperties
-                }
+                style={{ transform: "translate3d(0,0,0)" }}
                 aria-hidden
               >
                 <Image
@@ -172,8 +193,11 @@ export default function Home() {
           <div
             id="cards"
             ref={cardsRef}
-            className="mx-auto translate-y-15"
-            style={cardsStyle}
+            className="mx-auto"
+            style={{
+              transform: "translate3d(0, -80px, 0)",
+              willChange: "transform, opacity",
+            }}
           >
             <Image
               src="/cards.png"
