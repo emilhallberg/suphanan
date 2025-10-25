@@ -186,7 +186,7 @@ export default function Home() {
                 alt="note"
                 height={200}
                 width={200}
-                className="hover:scale-105 transition-all"
+                className="scale-95 hover:scale-105 transition-all"
               />
             </Link>
           </div>
@@ -208,6 +208,29 @@ export default function Home() {
             />
           </div>
           <div
+            className="flex gap-6 whitespace-nowrap pb-3"
+            style={{ animation: "vibe-marquee 18s linear infinite" }}
+          >
+            {[...Array(2)].map((_, dup) => (
+              <div key={dup} className="flex gap-6">
+                {Array.from({ length: 10 }).map((_, index) => (
+                  <p
+                    key={`${dup}-${index}`}
+                    className={`${handwritten.className} text-2xl`}
+                  >
+                    birthday week
+                  </p>
+                ))}
+              </div>
+            ))}
+          </div>
+        </section>
+        <div
+          id="calendar"
+          className="mt-16 min-h-screen flex flex-col justify-start items-center w-svw lg:w-[640px] mx-auto relative bg-transparent"
+        >
+          {/* Header */}
+          <div
             id="frame"
             className="origin-top mx-auto"
             style={{
@@ -222,26 +245,6 @@ export default function Home() {
               width={200}
               className="pointer-events-none"
             />
-          </div>
-        </section>
-        <div
-          id="calendar"
-          className="mt-16 min-h-screen flex flex-col justify-start items-center w-svw lg:w-[640px] mx-auto relative bg-transparent"
-        >
-          {/* Header */}
-          <div className="text-center mb-6 mt-6 relative w-50 h-50 grid place-content-center">
-            <div className="absolute top-0 left-0 right-0 bottom-0">
-              <Image
-                src="/note-frame.png"
-                alt="Balloon"
-                fill
-                priority={false}
-              />
-            </div>
-            <h1 className={`${handwritten.className} mt-5 text-2xl`}>
-              Birthday
-            </h1>
-            <h1 className={`${handwritten.className} mt-5 text-2xl`}>week</h1>
           </div>
           <SignUp />
           <div className="w-full grid grid-cols-1 place-items-center pb-8">
@@ -297,6 +300,16 @@ export default function Home() {
                       <Image src="/mini.png" alt="bow" height={80} width={80} />
                     </div>
                   ) : null}
+                  {day === 7 ? (
+                    <div className="absolute -bottom-18 right-11">
+                      <Image
+                        src="/bow.png"
+                        alt="bow"
+                        height={100}
+                        width={100}
+                      />
+                    </div>
+                  ) : null}
                   {/* Brush circle behind number */}
                   {circled ? (
                     <div className="absolute pt-3">
@@ -327,10 +340,10 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <section className="mx-auto py-6 relative overflow-hidden w-full grid place-content-center">
+      <section className="mx-auto py-20 relative overflow-hidden w-full grid place-content-center">
         <div
           id="vibe"
-          className="flex gap-6 absolute top-[40%] left-0 -z-10 whitespace-nowrap"
+          className="flex gap-6 absolute top-[30%] left-0 -z-10 whitespace-nowrap"
           style={{ animation: "vibe-marquee 18s linear infinite" }}
         >
           {[...Array(2)].map((_, dup) => (
@@ -350,8 +363,8 @@ export default function Home() {
         <Image
           src="/vibes.png"
           alt="stripe"
-          height={500}
-          width={500}
+          height={300}
+          width={300}
           className="pointer-events-none"
         />
       </section>
@@ -401,7 +414,7 @@ export default function Home() {
               style={{ fontSize: 16 }}
             >
               <textPath href="#circlePath" startOffset="0%">
-                Follow my birthday week
+                follow my birthday week
               </textPath>
             </text>
           </svg>
@@ -422,7 +435,7 @@ export default function Home() {
             >
               <path
                 fill="currentColor"
-                d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346 3 3-3h10zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm5.5-2.75a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z"
+                d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm5.5-2.75a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z"
               />
             </svg>
           </Link>

@@ -27,10 +27,19 @@ export default function ThankYouBurst({
   show,
   onClose,
   lifetime = 7000,
+  sources = ["/cake.png", "/redbow.png", "/flower.png"],
+  message = "TACK!",
+  count = 12,
+  spriteAspect = 1,
 }: {
   show: boolean;
   onClose?: () => void;
   lifetime?: number;
+  sources?: string[];
+  message?: string | null;
+  count?: number;
+  // height/width ratio (1 for square). Used to preserve non-square sprite aspect.
+  spriteAspect?: number;
 }) {
   const [visible, setVisible] = useState(show);
 
@@ -46,8 +55,6 @@ export default function ThankYouBurst({
   }, [visible, lifetime, onClose]);
 
   const sprites = useMemo<Sprite[]>(() => {
-    const sources = ["/cake.png", "/redbow.png", "/flower.png"];
-    const count = 12;
     return Array.from({ length: count }).map((_, i) => ({
       id: `${Date.now()}-${i}`,
       src: sources[Math.floor(Math.random() * sources.length)],
@@ -58,23 +65,25 @@ export default function ThankYouBurst({
       duration: rand(2.0, 3.5),
       delay: rand(0, 0.9),
     }));
-  }, []);
+  }, [sources, count]);
 
   if (!visible) return null;
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-50 grid place-items-center"
+      className="pointer-events-none fixed inset-0 z-60 grid place-items-center"
       aria-live="polite"
       role="status"
     >
       <div className="relative grid place-items-center text-center min-w-[70vw] min-h-[60vh]">
-        <div
-          className={`${anton.className} text-[64px] text-accent drop-shadow-[0_6px_0_#00000020] select-none`}
-          style={{ animation: "pop 600ms ease-out 1" }}
-        >
-          TACK!
-        </div>
+        {message && (
+          <div
+            className={`${anton.className} text-[64px] text-black drop-shadow-[0_6px_0_#00000020] select-none`}
+            style={{ animation: "pop 600ms ease-out 1" }}
+          >
+            {message}
+          </div>
+        )}
 
         {sprites.map((s) => (
           <div
@@ -91,9 +100,9 @@ export default function ThankYouBurst({
               src={s.src}
               alt=""
               width={Math.round(s.size)}
-              height={Math.round(s.size)}
+              height={Math.round(s.size * spriteAspect)}
               className="opacity-90"
-              priority
+              unoptimized
             />
           </div>
         ))}
