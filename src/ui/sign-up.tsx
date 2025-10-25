@@ -54,7 +54,7 @@ export default function SignUp() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className={`${anton.className} hover:bg-[#F897D1FF] uppercase tracking-wider text-[18px] px-6 py-3 border border-neutral-700 rounded-full text-neutral-900 transition-colors`}
+          className={`${handwritten.className} hover:bg-black/70 text-[18px] px-6 pt-3 pb-2 border border-neutral-700 text-white bg-black transition-colors`}
         >
           Boka din dag här!
         </button>

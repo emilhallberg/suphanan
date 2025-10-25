@@ -15,7 +15,7 @@ body {
   background-color: var(--background);
   background-image: url("/background.svg");
   background-repeat: repeat;
-  background-position: top left;
+  background-position: center top;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }

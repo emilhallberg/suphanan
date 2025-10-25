@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Kranky } from "next/font/google";
 import Image from "next/image";
@@ -12,61 +12,21 @@ type Note = {
   color: string;
 };
 
-const SLIDES = [
-  { src: "/slideshow/1.jpg", alt: "1" },
-  { src: "/slideshow/2.jpg", alt: "2" },
-  { src: "/slideshow/3.jpg", alt: "3" },
-  { src: "/slideshow/4.jpg", alt: "4" },
-];
-
 // Soft beige → gray → pink scale inspired by provided image
-const NOTE_COLORS = [
-  // beige / cream
-  "#F2E3D9",
-  "#E7D2C9",
-  // grays
-  "#BFC6C3",
-  "#D9DFDC",
-  // pinks
-  "#F1D6DC",
-  "#F3C0CD",
-];
+const NOTE_COLORS = ["#C70C12", "#871629", "#FFAEC8"];
 const NOTE_ROTATIONS = [-4, 4, -2.5, 5, -1.5, 3.5, -3];
 const NOTE_W = 224; // 56 * 4
 const NOTE_H = 224;
-const HINT_WORDS = ["click here", "to", "write a", "message"];
 
 const handwritten = Kranky({ weight: "400", subsets: ["latin"] });
 
 export default function NotePage() {
   const router = useRouter();
-  const [slide, setSlide] = useState(0);
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [draftColor, setDraftColor] = useState(NOTE_COLORS[0]);
-
-  const [hintStyles, setHintStyles] = useState<
-    { animationDuration: string; animationDelay: string }[]
-  >(HINT_WORDS.map(() => ({ animationDuration: "2s", animationDelay: "0s" })));
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setSlide((s) => (s + 1) % SLIDES.length);
-    }, 300);
-    return () => clearInterval(id);
-  }, []);
-
-  useEffect(() => {
-    // Randomize after mount to avoid SSR hydration mismatches
-    setHintStyles(
-      HINT_WORDS.map(() => ({
-        animationDuration: `${0.3 + Math.random() * 0.3}s`,
-        animationDelay: `${Math.random() * 0.8}s`,
-      })),
-    );
-  }, []);
 
   // Restore state via API (server lists blobs)
   useEffect(() => {
@@ -113,27 +73,6 @@ export default function NotePage() {
     return lines.slice(0, 6).join("\n");
   };
 
-  const subtleHint = useMemo(
-    () => (
-      <button
-        aria-label="Leave a message"
-        className="mx-auto mt-12 text-black/40 hover:text-black/60 transition-colors flex gap-1 sm:gap-2 cursor-pointer whitespace-nowrap"
-        onClick={() => setOpen(true)}
-      >
-        {HINT_WORDS.map((w, i) => (
-          <mark
-            key={w + i}
-            className="bg-black hover:bg-black/80 text-white px-2 sm:px-3 py-0.5 text-xs sm:text-sm wiggle inline-block"
-            style={hintStyles[i] as React.CSSProperties}
-          >
-            {w}
-          </mark>
-        ))}
-      </button>
-    ),
-    [hintStyles],
-  );
-
   return (
     <div className="mx-auto max-w-4xl px-4 pb-24">
       {/* Back button */}
@@ -160,36 +99,32 @@ export default function NotePage() {
         </svg>
       </button>
       {/* Header */}
-      <div
-        className="grid items-center justify-center gap-2 sm:gap-4 pt-10"
-        style={{ gridTemplateColumns: "1fr max-content 1fr" }}
-      >
-        <h1 className="text-right text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-wider whitespace-nowrap leading-none">
-          B-DAY
-        </h1>
-
-        <div
-          className="relative overflow-hidden ring-2 ring-white shadow-md h-18 w-15"
-          style={{ aspectRatio: "2 / 3" }}
-        >
-          <Image
-            key={SLIDES[slide].src}
-            src={SLIDES[slide].src}
-            alt={SLIDES[slide].alt}
-            sizes="(max-width: 640px) 100vw, 240px"
-            fill
-            className="object-cover grayscale"
-            priority
-          />
-        </div>
-
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-wider whitespace-nowrap leading-none">
-          WISHES
-        </h1>
+      <div className="mx-auto pt-15 flex justify-center">
+        <Image
+          src="/note-header.png"
+          alt="frame"
+          height={700}
+          width={500}
+          style={{ objectFit: "contain" }}
+        />
       </div>
 
       {/* Hint */}
-      <div className="flex justify-center">{subtleHint}</div>
+      <div className="flex justify-center pb-10">
+        <button
+          aria-label="Leave a message"
+          className="mx-auto mt-12 text-black/40 hover:text-black/60 transition-all hover:scale-105  flex gap-1 sm:gap-2 cursor-pointer whitespace-nowrap"
+          onClick={() => setOpen(true)}
+        >
+          <Image
+            src="/click.png"
+            alt="frame"
+            height={500}
+            width={500}
+            style={{ objectFit: "contain" }}
+          />
+        </button>
+      </div>
 
       {/* Notes wall */}
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 place-items-center">
@@ -210,7 +145,7 @@ export default function NotePage() {
               }}
             >
               {/* tape */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 h-6 w-24 bg-white/80 rotate-[-7deg] shadow-sm z-10" />
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 h-6 w-24 bg-black/60 rotate-[-7deg] shadow-sm z-10" />
 
               {/* note */}
               <div
@@ -218,7 +153,7 @@ export default function NotePage() {
                 style={{ background: n.color }}
               >
                 <p
-                  className={`h-full w-full whitespace-pre-wrap break-words text-black/80 text-lg leading-tight ${handwritten.className} text-left overflow-hidden`}
+                  className={`h-full w-full whitespace-pre-wrap break-words text-white text-lg leading-tight ${handwritten.className} text-left overflow-hidden`}
                   style={{
                     display: "-webkit-box",
                     WebkitLineClamp: 8,
@@ -247,7 +182,7 @@ export default function NotePage() {
               className="relative mx-auto"
               style={{ width: NOTE_W, height: NOTE_H }}
             >
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 h-6 w-24 bg-white/80 rotate-[-6deg] shadow-sm z-10" />
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 h-6 w-24 bg-black/60 rotate-[-6deg] shadow-sm z-10" />
               <div
                 className="absolute inset-0 shadow-xl p-4"
                 style={{ background: draftColor }}
@@ -266,7 +201,7 @@ export default function NotePage() {
                       if (lines.length >= 8) e.preventDefault();
                     }
                   }}
-                  className={`h-full w-full resize-none bg-transparent outline-none placeholder-black/40 text-black/80 text-lg leading-tight ${handwritten.className} text-left overflow-hidden`}
+                  className={`h-full w-full placeholder:text-white/80 resize-none bg-transparent outline-none text-white text-lg leading-tight ${handwritten.className} text-left overflow-hidden`}
                 />
               </div>
               <span className="absolute bottom-1 right-2 text-xs text-black/50 select-none">
