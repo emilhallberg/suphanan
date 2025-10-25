@@ -279,9 +279,9 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="overflow-hidden w-full">
+        <section className="overflow-x-hidden w-full p-3">
           <div
-            className="flex gap-6 whitespace-nowrap pb-3"
+            className="flex gap-6 whitespace-nowrap"
             style={{ animation: "vibe-marquee 5s linear infinite" }}
           >
             {[...Array(2)].map((_, dup) => (
