@@ -207,13 +207,15 @@ export default function Home() {
               className="pointer-events-none"
             />
           </div>
+        </section>
+        <section className="overflow-hidden w-full">
           <div
             className="flex gap-6 whitespace-nowrap pb-3"
-            style={{ animation: "vibe-marquee 18s linear infinite" }}
+            style={{ animation: "vibe-marquee 5s linear infinite" }}
           >
             {[...Array(2)].map((_, dup) => (
               <div key={dup} className="flex gap-6">
-                {Array.from({ length: 10 }).map((_, index) => (
+                {Array.from({ length: 20 }).map((_, index) => (
                   <p
                     key={`${dup}-${index}`}
                     className={`${handwritten.className} text-2xl`}
@@ -351,7 +353,7 @@ export default function Home() {
               {Array.from({ length: 20 }).map((_, index) => (
                 <p
                   key={`${dup}-${index}`}
-                  className={`${handwritten.className} text-sm sm:text-base md:text-lg`}
+                  className={`${handwritten.className} text-2xl`}
                 >
                   vibes
                 </p>
