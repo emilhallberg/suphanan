@@ -26,6 +26,9 @@ export default function Home() {
   const fixedTextRef = useRef<HTMLDivElement | null>(null);
   const balloonRef = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<HTMLDivElement | null>(null);
+  const card1Ref = useRef<HTMLDivElement | null>(null);
+  const card2Ref = useRef<HTMLDivElement | null>(null);
+  const card3Ref = useRef<HTMLDivElement | null>(null);
   const tickingRef = useRef(false);
 
   useEffect(() => {
@@ -54,42 +57,67 @@ export default function Home() {
         bEl.style.transform = `translate3d(0, ${balloonDy}px, 0)`;
       }
 
-      // Cards bounce -> fly-out
-      const cEl = cardsRef.current;
-      if (cEl) {
-        const r = cEl.getBoundingClientRect();
+      // Cards bounce -> fly-out (three separate cards)
+      const wrapEl = cardsRef.current;
+      if (wrapEl) {
+        const r = wrapEl.getBoundingClientRect();
         const vh = window.innerHeight || document.documentElement.clientHeight;
         const start = vh * 0.9;
         const denom = vh + r.height;
         let p = (start - r.top) / Math.max(denom, 1);
         p = Math.max(0, Math.min(1, p));
 
-        const baseY = -80; // px
-        let tx = 0;
-        let ty = baseY;
-        let rot = 0;
-        let opacity = 1;
-
         const bounceEnd = 0.35;
-        if (p <= bounceEnd) {
-          const pb = p / Math.max(bounceEnd, 0.0001);
-          const amp = 20;
-          const wobble = 2.5;
-          const decay = 1 - pb;
-          ty = baseY + Math.sin(pb * Math.PI * 2) * amp * decay;
-          rot = Math.sin(pb * Math.PI * 2) * wobble * decay;
-        } else {
-          const t = (p - bounceEnd) / (1 - bounceEnd);
-          const ease = 1 - Math.pow(1 - t, 3);
-          const vw = window.innerWidth || 800;
-          tx = vw * 0.6 * ease;
-          ty = baseY - 60 - 220 * ease;
-          rot = 18 * ease;
-          opacity = 1 - 0.9 * ease;
-        }
-        cEl.style.willChange = "transform, opacity";
-        cEl.style.transform = `translate3d(${tx}px, ${ty}px, 0) rotate(${rot}deg)`;
-        cEl.style.opacity = `${opacity}`;
+        const baseY = 0; // px relative to wrapper
+
+        const apply = (
+          el: HTMLDivElement | null,
+          dir: { tx: number; ty: number; rot: number; fade?: number },
+          wobblePhase: number,
+        ) => {
+          if (!el) return;
+          let tx = 0;
+          let ty = baseY;
+          let rot = 0;
+          let opacity = 1;
+          if (p <= bounceEnd) {
+            const pb = p / Math.max(bounceEnd, 0.0001);
+            const amp = 16;
+            const wobble = 3;
+            const decay = 1 - pb;
+            ty =
+              baseY + Math.sin((pb + wobblePhase) * Math.PI * 2) * amp * decay;
+            rot = Math.sin((pb + wobblePhase) * Math.PI * 2) * wobble * decay;
+          } else {
+            const t = (p - bounceEnd) / (1 - bounceEnd);
+            const ease = 1 - Math.pow(1 - t, 3);
+            const vw = window.innerWidth || 800;
+            tx = vw * dir.tx * ease;
+            ty = baseY + dir.ty * ease;
+            rot = dir.rot * ease;
+            opacity = 1 - (dir.fade ?? 0.85) * ease;
+          }
+          el.style.willChange = "transform, opacity";
+          el.style.transform = `translate3d(${tx}px, ${ty}px, 0) rotate(${rot}deg)`;
+          el.style.opacity = `${opacity}`;
+        };
+
+        // Left, middle, right cards fly in distinct directions
+        apply(
+          card1Ref.current,
+          { tx: -0.45, ty: -200, rot: -22, fade: 0.85 },
+          0.12,
+        );
+        apply(
+          card2Ref.current,
+          { tx: 0.05, ty: -240, rot: 12, fade: 0.88 },
+          0.24,
+        );
+        apply(
+          card3Ref.current,
+          { tx: 0.55, ty: -260, rot: 18, fade: 0.9 },
+          0.36,
+        );
       }
     };
 
@@ -193,19 +221,62 @@ export default function Home() {
           <div
             id="cards"
             ref={cardsRef}
-            className="mx-auto"
+            className="mx-auto relative"
             style={{
               transform: "translate3d(0, -80px, 0)",
-              willChange: "transform, opacity",
+              willChange: "transform",
+              width: "min(520px, 88vw)",
+              height: 360,
             }}
           >
-            <Image
-              src="/cards.png"
-              alt="stripe"
-              height={500}
-              width={500}
-              className="pointer-events-none"
-            />
+            {/* Left card (card-1) */}
+            <div
+              className="absolute left-[25%] top-1/2 -translate-x-1/2 -translate-y-1/2"
+              aria-hidden
+            >
+              <div ref={card1Ref}>
+                <Image
+                  src="/card-1.png"
+                  alt="card"
+                  width={100}
+                  height={244}
+                  className="pointer-events-none select-none"
+                  priority
+                />
+              </div>
+            </div>
+            {/* Middle card (card-2) */}
+            <div
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              aria-hidden
+            >
+              <div ref={card2Ref}>
+                <Image
+                  src="/card-2.png"
+                  alt="card"
+                  width={150}
+                  height={120}
+                  className="pointer-events-none select-none"
+                  priority
+                />
+              </div>
+            </div>
+            {/* Right card (card-3) */}
+            <div
+              className="absolute left-[75%] top-1/2 -translate-x-1/2 -translate-y-1/2"
+              aria-hidden
+            >
+              <div ref={card3Ref}>
+                <Image
+                  src="/card-3.png"
+                  alt="card"
+                  width={202}
+                  height={261}
+                  className="pointer-events-none select-none"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </section>
         <section className="overflow-hidden w-full">
