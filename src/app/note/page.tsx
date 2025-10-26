@@ -180,6 +180,13 @@ export default function NotePage() {
           style={{ objectFit: "contain" }}
         />
       </div>
+      <button
+        onClick={() => {
+          setBurst(true);
+        }}
+      >
+        Hej
+      </button>
 
       {/* Hint */}
       <div className="flex justify-center pb-10">

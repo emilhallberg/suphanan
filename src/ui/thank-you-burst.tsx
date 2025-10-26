@@ -60,7 +60,7 @@ export default function ThankYouBurst({
       src: sources[Math.floor(Math.random() * sources.length)],
       top: rand(-30, 130),
       left: rand(-30, 130),
-      size: rand(56, 110),
+      size: rand(32, 32),
       rotate: rand(-18, 18),
       duration: rand(2.0, 3.5),
       delay: rand(0, 0.9),
