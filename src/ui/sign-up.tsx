@@ -15,7 +15,7 @@ export const OPTIONS = [
   { day: 1, dow: "MÅNDAG" },
   { day: 2, dow: "TISDAG" },
   { day: 3, dow: "ONSDAG" },
-  { day: 4, dow: "TORSDAG" },
+  { day: 4, dow: "TORSDAG", occupied: true },
   { day: 5, dow: "FREDAG", occupied: true },
   { day: 6, dow: "LÖRDAG" },
   { day: 7, dow: "SÖNDAG", circled: true },
