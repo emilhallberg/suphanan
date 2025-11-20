@@ -17,7 +17,7 @@ export const OPTIONS = [
   { day: 3, dow: "ONSDAG" },
   { day: 4, dow: "TORSDAG", occupied: true },
   { day: 5, dow: "FREDAG", occupied: true },
-  { day: 6, dow: "LÖRDAG" },
+  { day: 6, dow: "LÖRDAG", occupied: true },
   { day: 7, dow: "SÖNDAG", circled: true },
 ] satisfies {
   day: number;
