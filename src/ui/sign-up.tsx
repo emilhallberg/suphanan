@@ -12,7 +12,7 @@ const anton = Anton({ weight: "400", subsets: ["latin"] });
 const handwritten = Homemade_Apple({ weight: "400", subsets: ["latin"] });
 
 export const OPTIONS = [
-  { day: 1, dow: "MÅNDAG" },
+  { day: 1, dow: "MÅNDAG", occupied: true },
   { day: 2, dow: "TISDAG" },
   { day: 3, dow: "ONSDAG" },
   { day: 4, dow: "TORSDAG", occupied: true },
