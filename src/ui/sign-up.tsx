@@ -14,7 +14,7 @@ const handwritten = Homemade_Apple({ weight: "400", subsets: ["latin"] });
 export const OPTIONS = [
   { day: 29, dow: "LÖRDAG", occupied: true, backgroundImage: "/day-29.png" },
   { day: 30, dow: "SÖNDAG", occupied: true, backgroundImage: "/day-30.png" },
-  { day: 1, dow: "MÅNDAG", occupied: true },
+  { day: 1, dow: "MÅNDAG", occupied: true, backgroundImage: "/day-1.png" },
   { day: 2, dow: "TISDAG" },
   { day: 3, dow: "ONSDAG", occupied: true },
   { day: 4, dow: "TORSDAG", occupied: true },
