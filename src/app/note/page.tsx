@@ -201,9 +201,18 @@ export default function NotePage() {
       {/* Notes wall */}
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 place-items-center">
         {loading && (
-          <p className="col-span-full text-center text-black/50">
-            Loading notes…
-          </p>
+          <div className="col-span-full grid place-items-center py-6">
+            <div className="relative w-16 h-16">
+              <Image
+                src="/heart.png"
+                alt="Loading"
+                fill
+                sizes="64px"
+                className="object-contain animate-pulse"
+                priority
+              />
+            </div>
+          </div>
         )}
         {!loading &&
           notes.map((n, idx) => (

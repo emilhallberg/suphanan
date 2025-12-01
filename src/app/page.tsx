@@ -321,13 +321,24 @@ export default function Home() {
           </div>
           <SignUp />
           <div className="w-full grid grid-cols-1 place-items-center pb-8">
-            {OPTIONS.map(({ day, dow, circled, occupied }) => (
+            {OPTIONS.map(({ day, dow, circled, occupied, backgroundImage }) => (
               <div
                 key={day}
                 className="w-50 flex flex-col items-stretch border-t last:border-b border-x"
               >
                 {/* Day cell with internal header */}
                 <div className="relative flex items-center justify-center h-55 sm:h-60 lg:h-56 border-neutral-700 bg-transparent">
+                  {/* Optional background image */}
+                  {backgroundImage ? (
+                    <Image
+                      src={backgroundImage}
+                      alt=""
+                      fill
+                      sizes="(max-width: 640px) 88vw, 520px"
+                      className="object-cover opacity-70 -z-10 pointer-events-none"
+                      aria-hidden
+                    />
+                  ) : null}
                   {/* Header inside box: day of week + month */}
                   <div className="absolute top-0 left-0 right-0 pt-2 text-center leading-3">
                     <div className="text-[12px] tracking-widest text-neutral-700">
@@ -400,7 +411,7 @@ export default function Home() {
                     {day}
                   </span>
 
-                  {occupied ? (
+                  {occupied && !backgroundImage ? (
                     <span
                       className={`${handwritten.className} absolute font-bold right-1 bottom-8 origin-bottom-right -rotate-45 -translate-y-12 text-[#C70C12] text-xl tracking-normal pointer-events-none`}
                     >

@@ -12,6 +12,8 @@ const anton = Anton({ weight: "400", subsets: ["latin"] });
 const handwritten = Homemade_Apple({ weight: "400", subsets: ["latin"] });
 
 export const OPTIONS = [
+  { day: 29, dow: "LÖRDAG", occupied: true, backgroundImage: "/day-29.png" },
+  { day: 30, dow: "SÖNDAG", occupied: true, backgroundImage: "/day-30.png" },
   { day: 1, dow: "MÅNDAG", occupied: true },
   { day: 2, dow: "TISDAG" },
   { day: 3, dow: "ONSDAG", occupied: true },
@@ -24,6 +26,7 @@ export const OPTIONS = [
   dow: string;
   circled?: boolean;
   occupied?: boolean;
+  backgroundImage?: string;
 }[];
 
 export default function SignUp() {
