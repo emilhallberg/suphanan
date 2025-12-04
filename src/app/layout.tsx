@@ -15,6 +15,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Suphanan",
+  openGraph: {
+    title: "Suphanan",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({

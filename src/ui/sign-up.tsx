@@ -17,7 +17,7 @@ export const OPTIONS = [
   { day: 1, dow: "MÅNDAG", occupied: true, backgroundImage: "/day-1.png" },
   { day: 2, dow: "TISDAG", occupied: true, backgroundImage: "/day-2.jpeg" },
   { day: 3, dow: "ONSDAG", occupied: true, backgroundImage: "/day-3.png" },
-  { day: 4, dow: "TORSDAG", occupied: true },
+  { day: 4, dow: "TORSDAG", occupied: true, backgroundImage: "/day-4.png" },
   { day: 5, dow: "FREDAG", occupied: true },
   { day: 6, dow: "LÖRDAG", occupied: true },
   { day: 7, dow: "SÖNDAG", circled: true },
