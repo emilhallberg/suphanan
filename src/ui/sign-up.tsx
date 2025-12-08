@@ -18,9 +18,9 @@ export const OPTIONS = [
   { day: 2, dow: "TISDAG", occupied: true, backgroundImage: "/day-2.jpeg" },
   { day: 3, dow: "ONSDAG", occupied: true, backgroundImage: "/day-3.png" },
   { day: 4, dow: "TORSDAG", occupied: true, backgroundImage: "/day-4.png" },
-  { day: 5, dow: "FREDAG", occupied: true },
-  { day: 6, dow: "LÖRDAG", occupied: true },
-  { day: 7, dow: "SÖNDAG", circled: true },
+  { day: 5, dow: "FREDAG", occupied: true, backgroundImage: "/day-5.png" },
+  { day: 6, dow: "LÖRDAG", occupied: true, backgroundImage: "/day-6.png" },
+  { day: 7, dow: "SÖNDAG", circled: true, backgroundImage: "/day-7.png" },
 ] satisfies {
   day: number;
   dow: string;
