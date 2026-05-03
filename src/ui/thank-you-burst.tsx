@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Anton } from "next/font/google";
 import Image from "next/image";
@@ -42,8 +42,26 @@ export default function ThankYouBurst({
   spriteAspect?: number;
 }) {
   const [visible, setVisible] = useState(show);
+  const [sprites, setSprites] = useState<Sprite[]>([]);
 
   useEffect(() => setVisible(show), [show]);
+
+  useEffect(() => {
+    if (!visible) return;
+
+    setSprites(
+      Array.from({ length: count }).map((_, i) => ({
+        id: `${Date.now()}-${i}`,
+        src: sources[Math.floor(Math.random() * sources.length)],
+        top: rand(-30, 130),
+        left: rand(-30, 130),
+        size: rand(32, 32),
+        rotate: rand(-18, 18),
+        duration: rand(2.0, 3.5),
+        delay: rand(0, 0.9),
+      })),
+    );
+  }, [visible, sources, count]);
 
   useEffect(() => {
     if (!visible) return;
@@ -53,19 +71,6 @@ export default function ThankYouBurst({
     }, lifetime);
     return () => clearTimeout(t);
   }, [visible, lifetime, onClose]);
-
-  const sprites = useMemo<Sprite[]>(() => {
-    return Array.from({ length: count }).map((_, i) => ({
-      id: `${Date.now()}-${i}`,
-      src: sources[Math.floor(Math.random() * sources.length)],
-      top: rand(-30, 130),
-      left: rand(-30, 130),
-      size: rand(32, 32),
-      rotate: rand(-18, 18),
-      duration: rand(2.0, 3.5),
-      delay: rand(0, 0.9),
-    }));
-  }, [sources, count]);
 
   if (!visible) return null;
 

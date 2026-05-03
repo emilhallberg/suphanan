@@ -1,20 +1,12 @@
-import { FlatCompat } from "@eslint/eslintrc";
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginPrettier from "eslint-plugin-prettier";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import unusedImports from "eslint-plugin-unused-imports";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+import tseslint from "typescript-eslint";
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...nextCoreWebVitals,
   {
     ignores: [
       "node_modules/**",
@@ -34,6 +26,7 @@ const eslintConfig = [
     ],
     plugins: {
       "simple-import-sort": simpleImportSort,
+      "@typescript-eslint": tseslint.plugin,
       "unused-imports": unusedImports,
       prettier: eslintPluginPrettier,
     },
@@ -45,6 +38,8 @@ const eslintConfig = [
         { props: "never", children: "never", propElementValues: "always" },
       ],
       "react-hooks/exhaustive-deps": "error",
+      "react-hooks/purity": "off",
+      "react-hooks/set-state-in-effect": "off",
       "simple-import-sort/exports": "error",
       "simple-import-sort/imports": [
         "error",
